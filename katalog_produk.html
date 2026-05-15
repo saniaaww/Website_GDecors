@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDecors - Catalog Product</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-accent: #7D8471;
+            --bg-light: #F9F9F7;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-light);
+            margin: 0;
+        }
+
+        .catalog-container {
+            max-width: 1300px;
+            margin: 120px auto 60px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr; /* Sidebar kiri, Content kanan */
+            gap: 40px;
+        }
+
+        /* --- SIDEBAR CATEGORY --- */
+        .sidebar-catalog {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            height: fit-content;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+        }
+
+        .sidebar-catalog h3 {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .category-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .category-list li {
+            margin-bottom: 15px;
+        }
+
+        .category-list a {
+            text-decoration: none;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+            font-weight: 500;
+        }
+
+        .category-list a:hover, .category-list a.active {
+            color: var(--primary-accent);
+        }
+
+        .count-badge {
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+        }
+
+        /* --- PRODUCT GRID --- */
+        .catalog-main h2 {
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 20px;
+            transition: 0.3s;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+
+        .product-img-wrapper {
+            width: 100%;
+            height: 220px;
+            background: #f4f4f4;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .product-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-card .tag {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: rgba(255,255,255,0.9);
+            padding: 4px 12px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--primary-accent);
+        }
+
+        .product-info h4 {
+            margin: 10px 0 5px;
+            font-size: 1.1rem;
+        }
+
+        .rating {
+            color: #FFD700;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        .rating span { color: #aaa; margin-left: 5px; font-weight: 400; }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .btn-add {
+            background: var(--primary-accent);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-add:hover { background: #5f6654; }
+
+        /* --- PAGINATION --- */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+
+        .page-link {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--white);
+            border-radius: 10px;
+            text-decoration: none;
+            color: #333;
+            transition: 0.3s;
+        }
+
+        .page-link.active, .page-link:hover {
+            background: var(--primary-accent);
+            color: white;
+        }
+
+        @media (max-width: 992px) {
+            .catalog-container { grid-template-columns: 1fr; }
+            .sidebar-catalog { display: none; } /* Sembunyikan sidebar di mobile */
+        }
+    </style>
+</head>
+<body>
+
+     <nav class="navbar">
+        <div class="logo">GDecors</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#categories">Catalog</a></li>
+            <li><a href="index.html#about">About</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="keranjang.html" style="color: inherit;"><i class="fas fa-shopping-cart"></i></a>
+        </div>
+    </nav>
+
+    <div class="catalog-container">
+        
+        <aside class="sidebar-catalog" data-aos="fade-right">
+            <h3>Category</h3>
+            <ul class="category-list">
+                <li><a href="#" class="active">All Product <span class="count-badge">24</span></a></li>
+                <li><a href="#">Wedding <span class="count-badge">12</span></a></li>
+                <li><a href="#">Engagement <span class="count-badge">8</span></a></li>
+                <li><a href="#">Birthday <span class="count-badge">4</span></a></li>
+                <li><a href="#">Table Decor <span class="count-badge">6</span></a></li>
+            </ul>
+        </aside>
+
+        <main class="catalog-main">
+            <h2 data-aos="fade-up">Give All You Need</h2>
+            
+            <div class="product-grid">
+                
+                <div class="product-card" data-aos="fade-up" data-aos-delay="100">
+                    <span class="tag">Wedding</span>
+                    <div class="product-img-wrapper">
+                        <img src="images/wedding.jpg" alt="Product">
+                    </div>
+                    <div class="product-info">
+                        <h4>Aesthetic Arch Wedding</h4>
+                        <div class="rating">
+                            <i class="fas fa-star"></i> 5.0 <span>(1.2k Reviews)</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">Rp 2.500.000</span>
+                            <a href="pembayaran.html" class="btn-add" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="tag">Engagement</span>
+                    <div class="product-img-wrapper">
+                        <img src="images/engagement.jpg" alt="Product">
+                    </div>
+                    <div class="product-info">
+                        <h4>Rustic Engagement Set</h4>
+                        <div class="rating">
+                            <i class="fas fa-star"></i> 4.8 <span>(850 Reviews)</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">Rp 1.200.000</span>
+                            <button class="btn-add"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-aos="fade-up" data-aos-delay="300">
+                    <span class="tag">Birthday</span>
+                    <div class="product-img-wrapper">
+                        <img src="images/birthday.jpg" alt="Product">
+                    </div>
+                    <div class="product-info">
+                        <h4>Kids Party Backdrop</h4>
+                        <div class="rating">
+                            <i class="fas fa-star"></i> 4.9 <span>(420 Reviews)</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">Rp 750.000</span>
+                            <button class="btn-add"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+            <div class="pagination" data-aos="fade-up">
+                <a href="#" class="page-link"><i class="fas fa-chevron-left"></i></a>
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <a href="#" class="page-link"><i class="fas fa-chevron-right"></i></a>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-wrapper">
+            <div class="footer-top">
+                <div class="footer-col brand-col">
+                    <h2 class="footer-logo">GDecors<span>.</span></h2>
+                    <p class="footer-tagline">Crafting Spaces, Creating Story. We turn your imagination into an unforgettable celebration.</p>
+                    <div class="footer-socials">
+                        <a href="http://instagram.com/gresik_decoration" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" aria-label="mailto:hello@gdecors.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="katalog_produk.html">Our Catalog</a></li>
+                        <li><a href="#about">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Surabaya, East Java</p>
+                    <p><i class="fas fa-phone-alt"></i> +62 875 6567 57755</p>
+                    <p><i class="fas fa-clock"></i> Mon - Sat: 09.00 - 18.00</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 GDecors. All Rights Reserved. Designed for Excellence.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+    </script>
+</body>
+</html>

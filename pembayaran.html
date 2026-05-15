@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDecors - Checkout Payment</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-accent: #7D8471;
+            --bg-light: #F9F9F7;
+            --white: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-light);
+            margin: 0;
+            color: #333;
+        }
+
+        /* --- CONTAINER UTAMA --- */
+        .checkout-container {
+            max-width: 1200px;
+            margin: 140px auto 80px; /* 'auto' di sini yang bikin konten ke tengah */
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 40px;
+        }
+
+        .checkout-form-section {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .form-card {
+            background: var(--white);
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+
+        .form-card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; }
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .pay-tab {
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .pay-tab i { font-size: 1.5rem; margin-bottom: 10px; display: block; }
+        .pay-tab.active {
+            border-color: #6366f1;
+            background: #f8faff;
+            color: #6366f1;
+        }
+
+        .order-summary {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 24px;
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+
+        .voucher-box { display: flex; gap: 10px; margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid #eee; }
+        .btn-apply { background: #333; color: white; border: none; padding: 0 20px; border-radius: 10px; cursor: pointer; }
+
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.95rem; }
+        .summary-total { border-top: 2px solid #eee; margin-top: 20px; padding-top: 20px; font-size: 1.2rem; font-weight: 700; }
+
+        .btn-pay {
+            width: 100%;
+            background: var(--primary-accent);
+            color: white;
+            padding: 18px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-top: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 992px) {
+            .checkout-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">GDecors</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#categories">Catalog</a></li>
+            <li><a href="index.html#about">About</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="keranjang.html" style="color: inherit;"><i class="fas fa-shopping-cart"></i></a>
+        </div>
+    </nav>
+
+    <div class="checkout-container">
+        
+        <div class="checkout-form-section">
+            
+            <div class="form-card" data-aos="fade-up">
+                <h2>Shipping Address</h2>
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" placeholder="First & Last Name">
+                </div>
+                <div class="input-group">
+                    <label>Address 1</label>
+                    <input type="text" placeholder="421, Surabaya Street">
+                </div>
+                <div class="input-group">
+                    <label>Address 2</label>
+                    <input type="text" placeholder="Apartment, suite, etc.">
+                </div>
+                <div class="grid-3">
+                    <div class="input-group">
+                        <label>City</label>
+                        <input type="text" placeholder="City">
+                    </div>
+                    <div class="input-group">
+                        <label>State</label>
+                        <select>
+                            <option>Jawa Timur</option>
+                            <option>Jawa Tengah</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Zip</label>
+                        <input type="text" placeholder="Zip code">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-card" data-aos="fade-up">
+                <h2>Payment Method</h2>
+                <div class="payment-methods">
+                    <div class="pay-tab active" onclick="switchPayment('card')">
+                        <i class="far fa-credit-card"></i>
+                        <span>Card</span>
+                    </div>
+                    <div class="pay-tab" onclick="switchPayment('wallet')">
+                        <i class="fas fa-wallet"></i>
+                        <span>Wallet</span>
+                    </div>
+                </div>
+
+                <div id="payment-form-container">
+                    <div id="form-card">
+                        <div class="input-group">
+                            <label>Name on Card</label>
+                            <input type="text" placeholder="First & Last Name">
+                        </div>
+                        <div class="input-group">
+                            <label>Card Number</label>
+                            <input type="text" placeholder="0000 0000 0000 0000">
+                        </div>
+                        <div class="grid-3">
+                            <div class="input-group"><label>Expiry</label><input type="text" placeholder="MM/YY"></div>
+                            <div class="input-group"><label>CVV</label><input type="password" placeholder="***"></div>
+                        </div>
+                    </div>
+
+                    <div id="form-wallet" style="display: none;">
+                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Choose your E-Wallet:</p>
+                        <div class="input-group">
+                            <select>
+                                <option>GoPay</option>
+                                <option>OVO</option>
+                                <option>ShopeePay</option>
+                                <option>DANA</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Phone Number</label>
+                            <input type="text" placeholder="0812-xxxx-xxxx">
+                        </div>
+                    </div>
+                </div>
+            </div> </div> <aside class="order-summary" data-aos="fade-left">
+            <h2 style="margin-top:0;">Order Summary</h2>
+            <div class="voucher-box">
+                <input type="text" placeholder="Voucher Code" style="flex:1; padding:10px; border-radius:10px; border:1px solid #ddd;">
+                <button class="btn-apply">Apply</button>
+            </div>
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <strong>Rp 10.700.000</strong>
+            </div>
+            <div class="summary-row">
+                <span>Shipping (Surabaya)</span>
+                <strong>Rp 150.000</strong>
+            </div>
+            <div class="summary-row" style="color: #2ecc71;">
+                <span>Voucher Discount</span>
+                <strong>- Rp 200.000</strong>
+            </div>
+            <div class="summary-row summary-total">
+                <span>Total Payment</span>
+                <span style="color:var(--primary-accent);">Rp 10.650.000</span>
+            </div>
+            <button class="btn-pay" onclick="alert('Payment Successful!')">Confirm & Pay Now</button>
+        </aside>
+
+    </div> 
+     <footer class="footer">
+        <div class="footer-wrapper">
+            <div class="footer-top">
+                <div class="footer-col brand-col">
+                    <h2 class="footer-logo">GDecors<span>.</span></h2>
+                    <p class="footer-tagline">Crafting Spaces, Creating Story. We turn your imagination into an unforgettable celebration.</p>
+                    <div class="footer-socials">
+                        <a href="http://instagram.com/gresik_decoration" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" aria-label="mailto:hello@gdecors.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="katalog_produk.html">Our Catalog</a></li>
+                        <li><a href="#about">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Surabaya, East Java</p>
+                    <p><i class="fas fa-phone-alt"></i> +62 875 6567 57755</p>
+                    <p><i class="fas fa-clock"></i> Mon - Sat: 09.00 - 18.00</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 GDecors. All Rights Reserved. Designed for Excellence.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        function switchPayment(method) {
+            const tabs = document.querySelectorAll('.pay-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            document.getElementById('form-card').style.display = 'none';
+            document.getElementById('form-wallet').style.display = 'none';
+            document.getElementById('form-' + method).style.display = 'block';
+        }
+    </script>
+</body>
+</html>

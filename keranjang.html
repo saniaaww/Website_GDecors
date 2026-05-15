@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDecors - Your Cart</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-accent: #7D8471;
+            --bg-light: #F9F9F7;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-light);
+            margin: 0;
+        }
+
+        .cart-container {
+            max-width: 1000px;
+            margin: 140px auto 80px;
+            padding: 40px;
+            background: var(--white);
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+        }
+
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cart-table th {
+            text-align: left;
+            padding-bottom: 20px;
+            color: #888;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item {
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item td {
+            padding: 25px 0;
+            vertical-align: middle;
+        }
+
+        /* Product Info Styling */
+        .prod-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .prod-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            object-fit: cover;
+            background: #f4f4f4;
+        }
+
+        .prod-details h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.1rem;
+            color: #1a1a1a;
+        }
+
+        .prod-details p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        /* Quantity Controls */
+        .qty-control {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #ddd;
+            padding: 8px 18px;
+            border-radius: 50px;
+        }
+
+        .qty-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: #333;
+            transition: 0.3s;
+        }
+
+        .qty-btn:hover { color: var(--primary-accent); }
+
+        .qty-val { font-weight: 700; min-width: 20px; text-align: center; }
+
+        /* Total & Action */
+        .total-price {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #1a1a1a;
+        }
+
+        .btn-delete {
+            background: none;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .btn-delete:hover { color: #ff4d4d; }
+
+        /* Summary Section */
+        .cart-footer {
+            margin-top: 40px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .grand-total span {
+            color: #888;
+            margin-right: 10px;
+        }
+
+        .btn-checkout {
+            background: var(--primary-accent);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .btn-checkout:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(125, 132, 113, 0.3); }
+
+        @media (max-width: 768px) {
+            .cart-container { padding: 20px; margin: 100px 15px; }
+            .cart-table th:nth-child(2), .cart-table td:nth-child(2) { display: none; } /* Sembunyikan kolom Qty di mobile */
+        }
+    </style>
+</head>
+<body>
+
+     <nav class="navbar">
+        <div class="logo">GDecors</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#categories">Catalog</a></li>
+            <li><a href="index.html#about">About</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="keranjang.html" style="color: inherit;"><i class="fas fa-shopping-cart"></i></a>
+        </div>
+    </nav>
+
+    <div class="cart-container" data-aos="fade-up">
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Product Code</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th style="text-align: right;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="cart-item">
+                    <td>
+                        <div class="prod-info">
+                            <img src="images/wedding.jpg" alt="Furniture" class="prod-img">
+                            <div class="prod-details">
+                                <h3>Engagement Decor Nature</h3>
+                                <p>Set : Colour: Coffee</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="qty-control">
+                            <button class="qty-btn">+</button>
+                            <span class="qty-val">4</span>
+                            <button class="qty-btn">-</button>
+                        </div>
+                    </td>
+                    <td><span class="total-price">Rp 6.500.000</span></td>
+                    <td style="text-align: right;"><button class="btn-delete"><i class="far fa-trash-can"></i></button></td>
+                </tr>
+
+                <tr class="cart-item">
+                    <td>
+                        <div class="prod-info">
+                            <img src="images/engagement.jpg" alt="Dining Set" class="prod-img">
+                            <div class="prod-details">
+                                <h3>Wedding Outdoor Nature</h3>
+                                <p>Set : Colour: Green</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="qty-control">
+                            <button class="qty-btn">+</button>
+                            <span class="qty-val">2</span>
+                            <button class="qty-btn">-</button>
+                        </div>
+                    </td>
+                    <td><span class="total-price">Rp 4.200.000</span></td>
+                    <td style="text-align: right;"><button class="btn-delete"><i class="far fa-trash-can"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="cart-footer">
+            <div class="grand-total">
+                <p><span>Subtotal:</span> <strong style="font-size: 1.4rem;">Rp 10.700.000</strong></p>
+            </div>
+            <a href="pembayaran.html" class="btn-checkout">Checkout Now</a>
+        </div>
+    </div>
+
+   <footer class="footer">
+        <div class="footer-wrapper">
+            <div class="footer-top">
+                <div class="footer-col brand-col">
+                    <h2 class="footer-logo">GDecors<span>.</span></h2>
+                    <p class="footer-tagline">Crafting Spaces, Creating Story. We turn your imagination into an unforgettable celebration.</p>
+                    <div class="footer-socials">
+                        <a href="http://instagram.com/gresik_decoration" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" aria-label="mailto:hello@gdecors.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#categories">Our Catalog</a></li>
+                        <li><a href="#about">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Surabaya, East Java</p>
+                    <p><i class="fas fa-phone-alt"></i> +62 875 6567 57755</p>
+                    <p><i class="fas fa-clock"></i> Mon - Sat: 09.00 - 18.00</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 GDecors. All Rights Reserved. Designed for Excellence.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+    </script>
+</body>
+</html>
