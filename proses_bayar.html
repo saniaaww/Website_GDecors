@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDecors - Payment Processing</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_katalog.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #fbfcfa; color: #444; }
+        .payment-container { max-width: 550px; margin: 150px auto 100px; padding: 40px; background: #ffffff; border: 1px solid #252b1e; border-radius: 24px; box-shadow: 0 10px 30px rgba(125, 132, 113, 0.05); text-align: center; }
+        h2 { color: #1b3322; margin-bottom: 10px; }
+        .price-display { font-size: 2rem; font-weight: 800; color: #7d8471; margin: 20px 0; }
+        #countdown { font-size: 1.2rem; font-weight: 600; color: #d63031; margin-bottom: 20px; }
+        .info-box { background: #fcfcfc; border: 1px solid #E4E7E1; padding: 25px; border-radius: 16px; margin-bottom: 25px; text-align: left; }
+        .btn-confirm { width: 100%; background: #3d4831; color: white; border: none; padding: 18px; font-size: 1rem; font-weight: 700; border-radius: 12px; cursor: pointer; transition: 0.3s; }
+        .btn-confirm:hover { background: #2b3322; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+
+    <div id="global-navbar"></div>
+
+    <div class="payment-container">
+        <h2>Complete Your Payment</h2>
+        <p>Silakan selesaikan pembayaran sebelum waktu habis:</p>
+        
+        <div id="countdown">15:00</div>
+        
+        <div class="price-display" id="display-total">Rp 0</div>
+        
+        <div class="info-box" id="payment-details">
+            Loading payment details...
+        </div>
+
+        <button class="btn-confirm" onclick="finishPayment()">Saya Sudah Bayar</button>
+    </div>
+
+    <div id="global-footer"></div>
+
+    <script src="components.js"></script>
+    <script>
+        // 1. Ambil Data dari LocalStorage
+    const totalPayment = localStorage.getItem('gdecors_total_payment') || "Rp 0";
+    const method = localStorage.getItem('gdecors_payment_method') || 'card';
+    
+    // Set harga ke tampilan
+    document.getElementById('display-total').textContent = totalPayment;
+
+    // Tampilkan Instruksi
+    const details = document.getElementById('payment-details');
+    if (method === 'wallet') {
+        details.innerHTML = `
+            <i class="fas fa-wallet"></i> <strong>Metode: E-Wallet (QRIS)</strong><br><br>
+            Silakan scan QRIS untuk membayar nominal: <strong>${totalPayment}</strong><br><br>
+            <div style="text-align:center; padding: 20px; border: 1px dashed #7d8471;">
+                <img src="path_ke_qr_anda.jpg" alt="QRIS" style="width:150px;">
+            </div>
+        `;
+    } else {
+        details.innerHTML = `
+            <i class="fas fa-university"></i> <strong>Metode: Bank Transfer</strong><br><br>
+            Bank BCA: <strong>8808-1234-5678-9012</strong><br>
+            a/n GDecors Decoration<br><br>
+            Nominal Transfer: <strong>${totalPayment}</strong>
+        `;
+    }
+
+        // 3. Countdown Logic (15 Menit)
+        let time = 15 * 60;
+        const countdownEl = document.getElementById('countdown');
+        const timer = setInterval(() => {
+            let minutes = Math.floor(time / 60);
+            let seconds = time % 60;
+            countdownEl.innerHTML = `Waktu tersisa: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            if (time <= 0) {
+                clearInterval(timer);
+                alert("Waktu pembayaran habis!");
+                window.location.href = 'keranjang.html';
+            }
+            time--;
+        }, 1000);
+
+        // 4. Selesaikan Pembayaran
+        function finishPayment() {
+            let history = JSON.parse(localStorage.getItem('gdecors_history')) || [];
+            if (history.length > 0) {
+                // Update status transaksi terakhir
+                history[history.length - 1].status = 'Waiting Verification';
+                localStorage.setItem('gdecors_history', JSON.stringify(history));
+            }
+            window.location.href = 'history_transaksi.html';
+        }
+    </script>
+</body>
+</html>

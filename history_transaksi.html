@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDecors - Transaction History</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="style_katalog.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Modal Backdrop */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                 background: rgba(27, 51, 34, 0.4); backdrop-filter: blur(8px); 
+                 z-index: 2000; align-items: center; justify-content: center; }
+
+        /* Modal Box */
+        .modal-content { background: #fff; padding: 40px; border-radius: 24px; max-width: 450px; width: 90%; 
+                         position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 1px solid #F0F2EE; }
+
+        /* Detail Styling */
+        .detail-row { display: flex; justify-content: space-between; margin-bottom: 15px; }
+        .detail-label { color: #888; font-weight: 500; font-size: 0.9rem; }
+        .detail-value { color: #1b3322; font-weight: 700; font-size: 0.9rem; text-align: right; }
+
+        /* General UI */
+        .history-card { background: #fff; border: 1px solid #F0F2EE; border-radius: 20px; padding: 20px; 
+                        margin-bottom: 20px; transition: 0.3s; cursor: pointer; display: flex; gap: 20px; align-items: center; }
+        .history-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .prod-img { width: 90px; height: 90px; object-fit: cover; border-radius: 12px; }
+        .close-btn { position: absolute; top: 25px; right: 25px; cursor: pointer; color: #7d8471; font-size: 1.2rem; }
+        
+        #wa-link { display: block; width: 100%; text-align: center; background: #25D366; color: white; 
+                   padding: 14px; border-radius: 12px; text-decoration: none; font-weight: 700; margin-top: 30px; 
+                   transition: 0.3s; font-family: 'Montserrat', sans-serif; }
+        #wa-link:hover { background: #1ebd5d; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+
+    <div id="global-navbar"></div>
+
+    <div class="main-wrapper" style="margin-top: 140px; min-height: 80vh; max-width: 800px; margin-left: auto; margin-right: auto; padding: 0 20px;">
+        <h1 style="font-family: 'Monserrat', sans-serif; color: #1b3322; margin-bottom: 30px;">My Rental History</h1>
+        <div id="transaction-list"></div>
+    </div>
+
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 style="font-family: 'Monserrat', sans-serif; color: #1b3322; margin-bottom: 25px;">Order Details</h2>
+            <div id="modal-body"></div>
+            <a id="wa-link" href="#" target="_blank">
+                <i class="fab fa-whatsapp"></i> Confirm to Admin
+            </a>
+        </div>
+    </div>
+
+    <div id="global-footer"></div>
+
+    <script src="components.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", renderHistory);
+
+        function renderHistory() {
+            let history = JSON.parse(localStorage.getItem('gdecors_history')) || [];
+            
+            // Limit to 3 items
+            if (history.length > 3) {
+                history = history.slice(-3);
+                localStorage.setItem('gdecors_history', JSON.stringify(history));
+            }
+
+            const container = document.getElementById('transaction-list');
+            if (history.length === 0) { container.innerHTML = "<p>No orders yet.</p>"; return; }
+
+            container.innerHTML = history.slice().reverse().map((tx, index) => {
+                const actualIndex = history.length - 1 - index; 
+                return `
+                    <div class="history-card" onclick="showDetails(${actualIndex})">
+                        <img src="images/wedding.jpg" class="prod-img">
+                        <div style="flex: 1;">
+                            <span style="font-size: 0.75rem; color: #7d8471; font-weight: 700;">${tx.invoice}</span>
+                            <h3 style="margin: 5px 0; font-size: 1.1rem; color: #1b3322;">${tx.items}</h3>
+                            <p style="font-weight: 700; color: #7d8471;">Rp ${tx.total.toLocaleString('id-ID')}</p>
+                        </div>
+                        <span style="background:#f4f6f3; color:#5d6652; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">${tx.status}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showDetails(index) {
+            const history = JSON.parse(localStorage.getItem('gdecors_history')) || [];
+            const tx = history[index];
+            if (!tx) return;
+
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <div class="detail-row"><span class="detail-label">Customer</span><span class="detail-value">${tx.customerName || 'N/A'}</span></div>
+                <div class="detail-row"><span class="detail-label">Address</span><span class="detail-value">${tx.address || 'N/A'}</span></div>
+                <div class="detail-row"><span class="detail-label">Items</span><span class="detail-value">${tx.items}</span></div>
+                <div class="detail-row"><span class="detail-label">Total</span><span class="detail-value">Rp ${tx.total.toLocaleString('id-ID')}</span></div>
+                <div class="detail-row"><span class="detail-label">Payment</span><span class="detail-value">${tx.paymentMethod === 'wallet' ? 'E-Wallet' : 'Bank Transfer'}</span></div>
+            `;
+            
+            document.getElementById('wa-link').href = `https://wa.me/6281234567890?text=Halo Admin GDecors, saya ingin konfirmasi pembayaran untuk pesanan: ${tx.invoice}`;
+            document.getElementById('orderModal').style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('orderModal').style.display = 'none'; }
+    </script>
+</body>
+</html>

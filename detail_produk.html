@@ -1,353 +1,682 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GDecors - Emerald Blue Detail</title>
+    <title>GDecors - Rustic Intimate Backdrop Detail</title>
     
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="style.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style_katalog.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        :root {
-            --primary-accent: #7D8471;
-            --bg-soft: #F9F9F7;
-            --dark-text: #1a1a1a;
-            --white: #ffffff;
-        }
-
+        /* ==========================================================================
+           CSS UTAMA DETAIL PRODUK & SINKRONISASI PADDING
+           ========================================================================== */
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-soft);
-            color: var(--dark-text);
-            margin: 0;
-            padding: 0;
-        }
-
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif !important;
+            background-color: #fbfcfa;
+            color: #444;
         }
 
         .container-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 120px 20px 60px;
+            max-width: 1150px;
+            margin: 140px auto 60px;
+            padding: 0 30px;
+            box-sizing: border-box;
         }
 
-        /* --- PRODUCT DETAIL SECTION --- */
+        /* CARD PRODUK UTAMA */
         .detail-card {
-            background: var(--white);
-            padding: 40px;
-            border-radius: 25px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.04);
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.1fr 1fr;
             gap: 50px;
-            margin-bottom: 50px;
-            align-items: center;
+            background: #ffffff;
+            border: 1px solid #F0F2EE;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(125, 132, 113, 0.03);
+            margin-bottom: 40px;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 520px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #F0F2EE;
         }
 
         .product-image img {
             width: 100%;
-            border-radius: 20px;
+            height: 100%;
             object-fit: cover;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .product-info h1 {
-            font-size: 3rem;
-            margin: 10px 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.4rem;
+            color: #1b3322;
+            margin: 8px 0 15px 0;
+            line-height: 1.2;
         }
 
         .price-tag {
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--dark-text);
+            color: #7D8471;
+            margin-bottom: 25px;
+        }
+
+        /* WRAPPER TANGGAL SEWA */
+        .rent-date-wrapper {
+            background: #fbfcfa;
+            border: 1px solid #E4E7E1;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .rent-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1b3322;
+            margin: 0 0 15px 0;
+        }
+
+        .rent-date-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .date-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .date-group label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #6d7562;
+            text-transform: uppercase;
+        }
+
+        .rent-date-input {
+            padding: 12px;
+            border: 1px solid #E4E7E1;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            color: #444;
+        }
+
+        .rent-date-input:focus {
+            border-color: #7d8471;
+        }
+
+        /* GRUP ACTION BUTTONS */
+        .action-buttons-group {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .btn-add-to-cart {
+            flex: 1;
+            background: #ffffff;
+            color: #3d4831;
+            border: 2px solid #3d4831;
+            padding: 16px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .btn-add-to-cart:hover {
+            background: #f4f6f3;
+            transform: translateY(-2px);
+        }
+
+        .btn-book-now {
+            flex: 1;
+            background: #3d4831;
+            color: white;
+            border: 2px solid #3d4831;
+            padding: 16px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .btn-book-now:hover {
+            background: #2b3322;
+            border-color: #2b3322;
+            transform: translateY(-2px);
+        }
+
+        /* SEKSI DESKRIPSI (Gaya Paragraf Mengalir Elegan) */
+        .product-description-section {
+            background: #ffffff;
+            border: 1px solid #F0F2EE;
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(125, 132, 113, 0.03);
+        }
+
+        .product-description-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6rem;
+            color: #1b3322;
+            margin-top: 0;
             margin-bottom: 20px;
         }
 
-        .action-btns {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
+        .product-description-section p {
+            font-size: 0.98rem;
+            color: #555;
+            line-height: 1.75;
+            margin-bottom: 16px;
+            text-align: justify;
         }
 
-        .btn-buy {
-            flex: 1;
-            padding: 18px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .cart { background: var(--primary-accent); color: white; }
-        .checkout { background: var(--dark-text); color: white; }
-        .btn-buy:hover { opacity: 0.9; transform: translateY(-2px); }
-
-        /* --- MODERN RATING SECTION --- */
-        .rating-card {
-            background: var(--white);
+        /* SEKSI SPESIFIKASI DEKORASI */
+        .specs-section {
+            background: #ffffff;
+            border: 1px solid #F0F2EE;
+            border-radius: 24px;
             padding: 40px;
-            border-radius: 25px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.04);
-            margin-bottom: 60px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(125, 132, 113, 0.03);
         }
 
-        .rating-flex {
+        .specs-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6rem;
+            color: #1b3322;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px 25px; /* Jarak baris vertikal direnggangkan menjadi 30px */
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .spec-item i {
+            color: #7d8471;
+            font-size: 1.3rem;
+            background: #f4f6f3;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .spec-text h5 {
+            font-size: 1rem;
+            margin: 0 0 10px 0; /* Jarak antara judul spesifikasi dan deskripsinya direnggangkan */
+            color: #1b3322;
+            font-weight: 700;
+        }
+
+        .spec-text p {
+            margin: 0;
+            font-size: 0.88rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* SEKSI REVIEW / ULASAN (Gaya Bersih Dengan Foto Pembeli) */
+        .reviews-section {
+            background: #ffffff;
+            border: 1px solid #F0F2EE;
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(125, 132, 113, 0.03);
+        }
+
+        .review-card {
+            border-bottom: 1px solid #F0F2EE;
+            padding: 25px 0;
+        }
+
+        .review-card:first-of-type {
+            padding-top: 10px;
+        }
+
+        .review-card:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .review-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .reviewer-info {
             display: flex;
             align-items: center;
-            gap: 60px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .big-rating-num {
-            text-align: center;
-            min-width: 150px;
-        }
-
-        .big-rating-num h2 {
-            font-size: 4.5rem;
-            margin: 0;
-            color: var(--dark-text);
-        }
-
-        .stars-gold { color: #f1c40f; font-size: 1.2rem; margin: 10px 0; }
-
-        .progress-stack {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
             gap: 12px;
         }
 
-        .progress-bar-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 0.9rem;
+        .reviewer-info i.fa-user-circle {
+            font-size: 2.2rem;
+            color: #bdc3c7;
+        }
+
+        .reviewer-name {
             font-weight: 600;
+            color: #1b3322;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
         }
 
-        .bar-bg {
-            flex-grow: 1;
-            height: 12px;
-            background: #eee;
-            border-radius: 10px;
-            overflow: hidden;
+        /* Pewarnaan Bintang Menjadi Kuning */
+        .review-stars i, .product-rating i {
+            color: #ffc107 !important;
         }
 
-        .bar-fill {
-            height: 100%;
-            background: var(--primary-accent);
-            border-radius: 10px;
+        .review-date {
+            font-size: 0.85rem;
+            color: #999;
         }
 
-        /* --- RECOMMENDATIONS (3 KESAMPING) --- */
-        .recom-header {
-            text-align: center;
-            margin-bottom: 40px;
+        .review-text {
+            font-size: 0.92rem;
+            color: #555;
+            line-height: 1.6;
+            margin: 0 0 15px 0;
         }
 
-        .recom-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* FIX 3 KOLOM */
-            gap: 30px;
+        /* GALERI FOTO BIAR REVIEWS ADA GAMBARNYA */
+        .review-photos {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
         }
 
-        .recom-card {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: 0.4s;
-            border: 1px solid #eee;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .recom-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
-
-        .recom-img {
-            width: 100%;
-            height: 220px;
-            overflow: hidden;
-        }
-
-        .recom-img img {
-            width: 100%;
-            height: 100%;
+        .review-photos img {
+            width: 85px;
+            height: 85px;
             object-fit: cover;
-            transition: 0.5s;
+            border-radius: 8px;
+            border: 1px solid #E4E7E1;
         }
 
-        .recom-card:hover img { transform: scale(1.1); }
+        /* SEKSI REKOMENDASI */
+        .recommendation-section {
+            background: #ffffff;
+            border: 1px solid #F0F2EE;
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 10px 30px rgba(125, 132, 113, 0.03);
+        }
 
-        .recom-body {
-            padding: 20px;
+        /* Diubah Menjadi Rata Tengah (Center Alignment) */
+        .section-title-area {
             text-align: center;
+            margin-bottom: 35px;
         }
 
-        .recom-body h3 { font-size: 1.3rem; margin-bottom: 5px; }
-        .recom-body p { font-size: 0.85rem; color: #888; margin-bottom: 10px; }
-        .recom-price { color: var(--primary-accent); font-weight: 700; font-size: 1.1rem; }
-
-        /* Responsive */
         @media (max-width: 992px) {
-            .detail-card { grid-template-columns: 1fr; }
-            .recom-grid { grid-template-columns: repeat(2, 1fr); }
-            .rating-flex { flex-direction: column; gap: 30px; }
-        }
-        @media (max-width: 600px) {
-            .recom-grid { grid-template-columns: 1fr; }
+            .detail-card, .product-description-section, .specs-section, .reviews-section, .recommendation-section {
+                padding: 25px;
+            }
+            .detail-card {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .container-wrapper {
+                margin-top: 100px;
+                padding: 0 20px;
+            }
+            .action-buttons-group {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">GDecors</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#services">Services</a></li>
-            <li><a href="index.html#categories">Catalog</a></li>
-            <li><a href="index.html#about">About</a></li>
-        </ul>
-        <div class="nav-icons">
-            <a href="keranjang.html" style="color: inherit;"><i class="fas fa-shopping-cart"></i></a>
-        </div>
-    </nav>
+    <div id="global-navbar"></div>
 
     <div class="container-wrapper">
         
+        <!-- CARD PRODUK UTAMA -->
         <section class="detail-card" data-aos="fade-up">
             <div class="product-image">
-                <img src="images/wedding.jpg" alt="Emerald Blue Decor">
+                <img src="images/wedding.jpg" alt="Rustic Intimate Backdrop Decor">
             </div>
             <div class="product-info">
-                <p style="color: var(--primary-accent); font-weight: 700; letter-spacing: 2px; margin-bottom: 0;">BEST SELLER</p>
-                <h1>Emerald Blue</h1>
-                <div class="price-tag">Rp 2.500.000</div>
-                <p style="line-height: 1.8; color: #555;">
-                    Nikmati kemewahan desain minimalis dengan sentuhan warna biru zamrud yang menenangkan. Paket ini mencakup backdrop premium, dekorasi bunga segar, dan tata cahaya estetik untuk momen tak terlupakan lo.
-                </p>
-                <div class="action-btns">
-                    <button class="btn-buy cart" onclick="alert('Added to cart, beb! ✨')">Add To Cart</button>
-                    <button class="btn-buy checkout">Checkout Now</button>
+                <p style="color: #7d8471; font-weight: 700; letter-spacing: 2px; margin-bottom: 0; font-size: 0.85rem;">BEST SELLER</p>
+                <h1>Rustic Intimate Backdrop</h1>
+                <div class="price-tag">Rp 5.500.000</div>
+                
+                <!-- Input Tanggal Sewa -->
+                <div class="rent-date-wrapper">
+                    <p class="rent-title"><i class="fa-solid fa-calendar-days" style="color: #7d8471; margin-right: 5px;"></i> Tentukan Periode Sewa</p>
+                    <div class="rent-date-grid">
+                        <div class="date-group">
+                            <label for="startDate">Tanggal Mulai</label>
+                            <input type="date" id="startDate" class="rent-date-input" onchange="handleStartDateChange()">
+                        </div>
+                        <div class="date-group">
+                            <label for="endDate">Tanggal Selesai</label>
+                            <input type="date" id="endDate" class="rent-date-input">
+                        </div>
+                    </div>
+                    <small style="color: #888; display: block; margin-top: 12px; font-size: 0.78rem; line-height: 1.4;">
+                        * Pemesanan minimal dilakukan H-14 (2 minggu) sebelum acara dimulai.
+                    </small>
+                </div>
+
+                <!-- Tombol Aksi Berdampingan -->
+                <div class="action-buttons-group">
+                    <button class="btn-add-to-cart" onclick="addToCart()">
+                        <i class="fas fa-shopping-basket" style="margin-right: 8px;"></i> Masukkan ke Keranjang
+                    </button>
+                    <button class="btn-book-now" onclick="bookNow()">
+                        <i class="fas fa-bolt" style="margin-right: 8px;"></i> Book Now
+                    </button>
                 </div>
             </div>
         </section>
 
-        <section class="rating-card" data-aos="fade-up">
-            <h3 style="font-size: 1.8rem; margin-bottom: 30px;">Customer Reviews</h3>
-            <div class="rating-flex">
-                <div class="big-rating-num">
-                    <h2>4.5</h2>
-                    <div class="stars-gold">★★★★★</div>
-                    <p style="font-size: 0.8rem; color: #aaa;">1,238 Global Ratings</p>
-                </div>
-                <div class="progress-stack">
-                    <div class="progress-bar-item">
-                        <span style="width: 40px;">5 Star</span>
-                        <div class="bar-bg"><div class="bar-fill" style="width: 85%;"></div></div>
-                        <span style="width: 40px; text-align: right;">85%</span>
-                    </div>
-                    <div class="progress-bar-item">
-                        <span style="width: 40px;">4 Star</span>
-                        <div class="bar-bg"><div class="bar-fill" style="width: 15%;"></div></div>
-                        <span style="width: 40px; text-align: right;">15%</span>
-                    </div>
-                    <div class="progress-bar-item">
-                        <span style="width: 40px;">3 Star</span>
-                        <div class="bar-bg"><div class="bar-fill" style="width: 0%;"></div></div>
-                        <span style="width: 40px; text-align: right;">0%</span>
+        <!-- SEKSI DESKRIPSI PARAGRAF MENGALIR -->
+        <section class="product-description-section" data-aos="fade-up">
+            <h2>Deskripsi Produk</h2>
+            <p>Hadirkan nuansa hangat yang berkelas ke dalam momen sakral Anda dengan dekorasi bertema Rustic Intimate Backdrop. Paket dekorasi eksklusif ini memadukan struktur kayu alami pilihan bertekstur tegas dengan aransemen rangkaian flora premium artifisial maupun aksen dedaunan hijau segar yang menenangkan. Kombinasi palet warna bumi (earthy tone) dirancang khusus untuk menciptakan titik fokus visual yang sangat menawan, baik saat diabadikan lewat lensa kamera maupun dipandang langsung oleh para tamu undangan.</p>
+            <p>Setiap detail paket sewa ini sudah mencakup instalasi lighting panggung penunjang berupa jajaran lampu sorot warm-white yang dramatis, dekorasi karpet lantai pelapis bertekstur premium, serta standing kain backdrop tipis yang menambah kesan elegan. Pilihan dekorasi ini sangat ideal diaplikasikan sebagai latar belakang momen pertunangan, upacara lamaran pernikahan, intimate wedding di dalam ruangan, maupun area photobooth eksklusif.</p>
+        </section>
+
+        <!-- SEKSI SPESIFIKASI DEKORASI -->
+        <section class="specs-section" data-aos="fade-up">
+            <h2>Spesifikasi Dekorasi</h2>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <i class="fas fa-arrows-alt"></i>
+                    <div class="spec-text">
+                        <h5>Dimensi Backdrop</h5>
+                        <p>Lebar 3-4 meter dengan tinggi standar panggung 2.8 meter.</p>
                     </div>
                 </div>
-            </div>
-            <div style="margin-top: 30px;">
-                <p><strong>"Bener-bener Beyond The Aesthetic! Gak nyesel pilih GDecors."</strong></p>
-                <p style="font-size: 0.85rem; color: #888;">— Darrell Steward, July 2026</p>
+                <div class="spec-item">
+                    <i class="fas fa-leaf"></i>
+                    <div class="spec-text">
+                        <h5>Komponen Flora</h5>
+                        <p>Bunga artifisial silk premium bercampur daun pampas asli kering.</p>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <div class="spec-text">
+                        <h5>Sistem Pencahayaan</h5>
+                        <p>4x Spotlight LED Warm White + instalasi dimmer ambience gantung.</p>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <i class="fas fa-truck"></i>
+                    <div class="spec-text">
+                        <h5>Layanan Antar</h5>
+                        <p>Termasuk bongkar pasang kru internal untuk area Surabaya & Gresik.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
+        <!-- SEKSI REVIEW / ULASAN DENGAN FOTO PEMBELI -->
+        <section class="reviews-section" data-aos="fade-up">
+            <h2 style="font-family: 'Montserrat', sans-serif; font-size: 1.6rem; color: #1b3322; margin-top: 0; margin-bottom: 25px;">Ulasan Pembeli Terverifikasi</h2>
+            <div class="reviews-list">
+                
+                <!-- User 1 -->
+                <div class="review-card">
+                    <div class="review-meta">
+                        <div class="reviewer-info">
+                            <i class="fas fa-user-circle"></i>
+                            <div>
+                                <div class="reviewer-name">Sania Rahmawati</div>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="review-date">12 Mei 2026</span>
+                    </div>
+                    <p class="review-text">Suka banget sama hasilnya! Tim GDecors dateng tepat waktu buat setup di venue. Bunganya kelihatan seger dan mewah banget pas difoto, lampunya juga bikin ambience ruangan jadi super hangat. Sangat direkomendasikan buat yang mau lamaran!</p>
+                    <div class="review-photos">
+                        <img src="images/engagement.jpg" alt="Review Sania 1" onerror="this.src='https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=150'">
+                        <img src="images/wedding.jpg" alt="Review Sania 2" onerror="this.src='https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=150'">
+                    </div>
+                </div>
+
+                <!-- User 2 -->
+                <div class="review-card">
+                    <div class="review-meta">
+                        <div class="reviewer-info">
+                            <i class="fas fa-user-circle"></i>
+                            <div>
+                                <div class="reviewer-name">Dimas Wicaksono</div>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="review-date">28 April 2026</span>
+                    </div>
+                    <p class="review-text">Pelayanan ramah dari awal konsultasi sampai bongkar dekorasi selesai acara. Bahannya kokoh, rangkaian bunganya rapi tertata kencang, nggak ada yang layu atau copot sepanjang acara berlangsung. Mantap pokoknya.</p>
+                    <div class="review-photos">
+                        <img src="images/wedding.jpg" alt="Review Dimas 1" onerror="this.src='https://images.unsplash.com/photo-1519225495810-7512c696505a?w=150'">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEKSI REKOMENDASI -->
         <section class="recommendation-section" data-aos="fade-up">
-            <div class="recom-header">
-                <h2>Our Recommendations</h2>
-                <p>Mungkin lo juga suka dekorasi cantik lainnya</p>
+            <div class="section-title-area">
+                <p class="section-sub" style="color: #7d8471; font-weight: 700; margin: 0 0 4px 0; font-size: 0.85rem; letter-spacing: 1px;">MUNGKIN KAMU SUKA</p>
+                <h2 style="font-family: 'Montserrat', sans-serif; font-size: 1.8rem; color: #1b3322; margin: 0;">Our Recommendations</h2>
             </div>
-            <div class="recom-grid">
-                <a href="#" class="recom-card">
-                    <div class="recom-img"><img src="images/engagement.jpg" alt="Decor"></div>
-                    <div class="recom-body">
-                        <h3>Lush Engagement</h3>
-                        <p>Intimate Warm Vibes</p>
-                        <div class="recom-price">Rp 1.800.000</div>
+            
+            <div class="products-grid">
+                
+                <div class="product-card" data-cat="wedding">
+                    <a href="detail_produk.html?id=2" class="product-img-link">
+                        <div class="product-img-box">
+                            <img src="images/wedding/wedding1.jpg" alt="Luxury White Botanical">
+                            <div class="wishlist-badge"><i class="far fa-heart"></i></div>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-tag">Wedding</span>
+                        <h3>Luxury White Botanical</h3>
+                        <div class="product-rating" style="margin-bottom: 10px; font-size: 0.85rem;">
+                            <i class="fas fa-star"></i> <span style="color: #555; font-weight: 600;">5.0</span> <small style="color: #888;">(240 Reviews)</small>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price-container">
+                                <span class="price-label">Harga Sewa</span>
+                                <span class="product-price">Rp 8.900.000<small>/hari</small></span>
+                            </div>
+                            <a href="detail_produk.html?id=2" class="btn-view-detail">Detail <i class="fas fa-chevron-right"></i></a>
+                        </div>
                     </div>
-                </a>
-                <a href="#" class="recom-card">
-                    <div class="recom-img"><img src="images/birthday.jpg" alt="Decor"></div>
-                    <div class="recom-body">
-                        <h3>Chic Birthday</h3>
-                        <p>Minimalist Party Setup</p>
-                        <div class="recom-price">Rp 1.200.000</div>
+                </div>
+
+                <div class="product-card" data-cat="engagement">
+                    <a href="detail_produk.html?id=5" class="product-img-link">
+                        <div class="product-img-box">
+                            <img src="images/engagement/enga2.jpg" alt="Modern Floral Ring">
+                            <div class="wishlist-badge"><i class="far fa-heart"></i></div>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-tag">Engagement</span>
+                        <h3>Modern Floral Ring</h3>
+                        <div class="product-rating" style="margin-bottom: 10px; font-size: 0.85rem;">
+                            <i class="fas fa-star"></i> <span style="color: #555; font-weight: 600;">4.8</span> <small style="color: #888;">(85 Reviews)</small>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price-container">
+                                <span class="price-label">Harga Sewa</span>
+                                <span class="product-price">Rp 3.200.000<small>/hari</small></span>
+                            </div>
+                            <a href="detail_produk.html?id=5" class="btn-view-detail">Detail <i class="fas fa-chevron-right"></i></a>
+                        </div>
                     </div>
-                </a>
-                <a href="#" class="recom-card">
-                    <div class="recom-img"><img src="images/decor 4.png" alt="Decor"></div>
-                    <div class="recom-body">
-                        <h3>Golden Gala</h3>
-                        <p>Luxury Modern Concept</p>
-                        <div class="recom-price">Rp 3.500.000</div>
+                </div>
+
+                <div class="product-card" data-cat="birthday">
+                    <a href="detail_produk.html?id=9" class="product-img-link">
+                        <div class="product-img-box">
+                            <img src="images/birthday/birth2.jpg" alt="Pastel Balloon Wonderland">
+                            <div class="wishlist-badge"><i class="far fa-heart"></i></div>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-tag">Birthday</span>
+                        <h3>Pastel Balloon Wonderland</h3>
+                        <div class="product-rating" style="margin-bottom: 10px; font-size: 0.85rem;">
+                            <i class="fas fa-star"></i> <span style="color: #555; font-weight: 600;">4.9</span> <small style="color: #888;">(104 Reviews)</small>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price-container">
+                                <span class="price-label">Harga Sewa</span>
+                                <span class="product-price">Rp 1.800.000<small>/hari</small></span>
+                            </div>
+                            <a href="detail_produk.html?id=9" class="btn-view-detail">Detail <i class="fas fa-chevron-right"></i></a>
+                        </div>
                     </div>
-                </a>
+                </div>
+
             </div>
         </section>
 
-    </div> <footer class="footer">
-    <div class="footer-wrapper">
-        <div class="footer-top">
-            <div class="footer-col brand-col">
-                <h2 class="footer-logo">GDecors<span>.</span></h2>
-                <p class="footer-tagline">Crafting Spaces, Creating Story. We turn your imagination into an unforgettable celebration.</p>
-                <div class="footer-socials">
-                    <a href="http://instagram.com/gresik_decoration" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="#"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#" aria-label="mailto:hello@gdecors.com"><i class="fas fa-envelope"></i></a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h4>Navigation</h4>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#categories">Our Catalog</a></li>
-                    <li><a href="#about">About Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Contact Us</h4>
-                <p><i class="fas fa-map-marker-alt"></i> Surabaya, East Java</p>
-                <p><i class="fas fa-phone-alt"></i> +62 875 6567 57755</p>
-                <p><i class="fas fa-clock"></i> Mon - Sat: 09.00 - 18.00</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 GDecors. All Rights Reserved. Designed for Excellence.</p>
-        </div>
-    </div>
-    </footer>
+    </div> 
+    
+    <div id="global-footer"></div>
 
-
+    <script src="components.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const startDateInput = document.getElementById('startDate');
+            const endDateInput = document.getElementById('endDate');
+            
+            const today = new Date();
+            today.setDate(today.getDate() + 14);
+            
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const minRentDate = `${yyyy}-${mm}-${dd}`;
+            
+            if(startDateInput && endDateInput) {
+                startDateInput.min = minRentDate;
+                endDateInput.min = minRentDate;
+            }
+        });
+
+        function handleStartDateChange() {
+            const startDate = document.getElementById('startDate').value;
+            const endDateInput = document.getElementById('endDate');
+            if (startDate) {
+                endDateInput.min = startDate;
+            }
+        }
+
+        function checkValidDate() {
+            const start = document.getElementById('startDate').value;
+            const end = document.getElementById('endDate').value;
+
+            if (!start || !end) {
+                alert('Tentukan tanggal mulai dan selesai sewa dulu ya! 📅');
+                return false;
+            }
+
+            const startDateObj = new Date(start);
+            const endDateObj = new Date(end);
+
+            if (endDateObj < startDateObj) {
+                alert('Masa tanggal selesainya mendahului tanggal mulai sih? Diperiksa lagi ya! 🧐');
+                return false;
+            }
+            return { start, end };
+        }
+
+        function addToCart() {
+            const date = checkValidDate();
+            if (date) {
+                const productData = {
+                    title: document.querySelector('.product-info h1').innerText,
+                    price: 5500000,
+                    imgSrc: document.querySelector('.product-image img').getAttribute('src'),
+                    category: "Best Seller",
+                    startDate: date.start,
+                    endDate: date.end
+                };
+
+                let cart = JSON.parse(localStorage.getItem('gdecors_cart')) || [];
+                cart.push(productData);
+                localStorage.setItem('gdecors_cart', JSON.stringify(cart));
+
+                alert(`✨ ${productData.title} berhasil dimasukkan ke keranjang untuk tanggal ${date.start} s/d ${date.end}!`);
+            }
+        }
+
+        function bookNow() {
+            const date = checkValidDate();
+            if (date) {
+                // Jalankan fungsi simpan data terlebih dahulu ke localStorage sebelum redirect
+                const productData = {
+                    title: document.querySelector('.product-info h1').innerText,
+                    price: 5500000,
+                    imgSrc: document.querySelector('.product-image img').getAttribute('src'),
+                    category: "Best Seller",
+                    startDate: date.start,
+                    endDate: date.end
+                };
+                
+                localStorage.setItem('gdecors_direct_checkout', JSON.stringify(productData));
+                
+                // Redirect ke halaman pembayaran (sesuaikan nama file pembayaranmu, contoh: pembayaran.html atau checkout.html)
+                window.location.href = 'pembayaran.html';
+            }
+        }
     </script>
 </body>
 </html>

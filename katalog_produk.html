@@ -1,339 +1,389 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GDecors - Catalog Product</title>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <style>
-        :root {
-            --primary-accent: #7D8471;
-            --bg-light: #F9F9F7;
-            --white: #ffffff;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-light);
-            margin: 0;
-        }
-
-        .catalog-container {
-            max-width: 1300px;
-            margin: 120px auto 60px;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 280px 1fr; /* Sidebar kiri, Content kanan */
-            gap: 40px;
-        }
-
-        /* --- SIDEBAR CATEGORY --- */
-        .sidebar-catalog {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 20px;
-            height: fit-content;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.02);
-        }
-
-        .sidebar-catalog h3 {
-            font-size: 1.2rem;
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-
-        .category-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .category-list li {
-            margin-bottom: 15px;
-        }
-
-        .category-list a {
-            text-decoration: none;
-            color: #666;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: 0.3s;
-            font-weight: 500;
-        }
-
-        .category-list a:hover, .category-list a.active {
-            color: var(--primary-accent);
-        }
-
-        .count-badge {
-            background: #f0f0f0;
-            padding: 2px 8px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-        }
-
-        /* --- PRODUCT GRID --- */
-        .catalog-main h2 {
-            margin-bottom: 30px;
-            font-size: 1.8rem;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .product-card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 20px;
-            transition: 0.3s;
-            position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-        }
-
-        .product-img-wrapper {
-            width: 100%;
-            height: 220px;
-            background: #f4f4f4;
-            border-radius: 15px;
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-
-        .product-img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .product-card .tag {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            background: rgba(255,255,255,0.9);
-            padding: 4px 12px;
-            border-radius: 10px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--primary-accent);
-        }
-
-        .product-info h4 {
-            margin: 10px 0 5px;
-            font-size: 1.1rem;
-        }
-
-        .rating {
-            color: #FFD700;
-            font-size: 0.85rem;
-            margin-bottom: 10px;
-        }
-
-        .rating span { color: #aaa; margin-left: 5px; font-weight: 400; }
-
-        .price-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-        }
-
-        .price {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #333;
-        }
-
-        .btn-add {
-            background: var(--primary-accent);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-add:hover { background: #5f6654; }
-
-        /* --- PAGINATION --- */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 50px;
-        }
-
-        .page-link {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--white);
-            border-radius: 10px;
-            text-decoration: none;
-            color: #333;
-            transition: 0.3s;
-        }
-
-        .page-link.active, .page-link:hover {
-            background: var(--primary-accent);
-            color: white;
-        }
-
-        @media (max-width: 992px) {
-            .catalog-container { grid-template-columns: 1fr; }
-            .sidebar-catalog { display: none; } /* Sembunyikan sidebar di mobile */
-        }
-    </style>
+    <title>GDecors - Product Catalog</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="style_katalog.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-     <nav class="navbar">
-        <div class="logo">GDecors</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#services">Services</a></li>
-            <li><a href="index.html#categories">Catalog</a></li>
-            <li><a href="index.html#about">About</a></li>
-        </ul>
-        <div class="nav-icons">
-            <a href="keranjang.html" style="color: inherit;"><i class="fas fa-shopping-cart"></i></a>
-        </div>
-    </nav>
+    <div id="global-navbar"></div>
 
-    <div class="catalog-container">
-        
-        <aside class="sidebar-catalog" data-aos="fade-right">
-            <h3>Category</h3>
-            <ul class="category-list">
-                <li><a href="#" class="active">All Product <span class="count-badge">24</span></a></li>
-                <li><a href="#">Wedding <span class="count-badge">12</span></a></li>
-                <li><a href="#">Engagement <span class="count-badge">8</span></a></li>
-                <li><a href="#">Birthday <span class="count-badge">4</span></a></li>
-                <li><a href="#">Table Decor <span class="count-badge">6</span></a></li>
-            </ul>
-        </aside>
+    <div class="main-wrapper">
 
-        <main class="catalog-main">
-            <h2 data-aos="fade-up">Give All You Need</h2>
-            
-            <div class="product-grid">
-                
-                <div class="product-card" data-aos="fade-up" data-aos-delay="100">
-                    <span class="tag">Wedding</span>
-                    <div class="product-img-wrapper">
-                        <img src="images/wedding.jpg" alt="Product">
-                    </div>
-                    <div class="product-info">
-                        <h4>Aesthetic Arch Wedding</h4>
-                        <div class="rating">
-                            <i class="fas fa-star"></i> 5.0 <span>(1.2k Reviews)</span>
+        <header class="catalog-hero-outer">
+            <div class="catalog-hero-inner">
+                <div class="catalog-hero-content">
+                    <span class="hero-tag">#FreeConsultation & Styling</span>
+                    <h1>Order Your<br>Dream Decorations</h1>
+                    
+                    <div class="search-bar-container">
+                        <div class="search-input-group">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="catalog-search" placeholder="Search your theme decorations...">
                         </div>
-                        <div class="price-row">
-                            <span class="price">Rp 2.500.000</span>
-                            <a href="pembayaran.html" class="btn-add" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-plus"></i>
-                            </a>
-                        </div>
+                        <button class="btn-search">Search</button>
                     </div>
                 </div>
-
-                <div class="product-card" data-aos="fade-up" data-aos-delay="200">
-                    <span class="tag">Engagement</span>
-                    <div class="product-img-wrapper">
-                        <img src="images/engagement.jpg" alt="Product">
-                    </div>
-                    <div class="product-info">
-                        <h4>Rustic Engagement Set</h4>
-                        <div class="rating">
-                            <i class="fas fa-star"></i> 4.8 <span>(850 Reviews)</span>
-                        </div>
-                        <div class="price-row">
-                            <span class="price">Rp 1.200.000</span>
-                            <button class="btn-add"><i class="fas fa-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-card" data-aos="fade-up" data-aos-delay="300">
-                    <span class="tag">Birthday</span>
-                    <div class="product-img-wrapper">
-                        <img src="images/birthday.jpg" alt="Product">
-                    </div>
-                    <div class="product-info">
-                        <h4>Kids Party Backdrop</h4>
-                        <div class="rating">
-                            <i class="fas fa-star"></i> 4.9 <span>(420 Reviews)</span>
-                        </div>
-                        <div class="price-row">
-                            <span class="price">Rp 750.000</span>
-                            <button class="btn-add"><i class="fas fa-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                </div>
-
-            <div class="pagination" data-aos="fade-up">
-                <a href="#" class="page-link"><i class="fas fa-chevron-left"></i></a>
-                <a href="#" class="page-link active">1</a>
-                <a href="#" class="page-link">2</a>
-                <a href="#" class="page-link">3</a>
-                <a href="#" class="page-link"><i class="fas fa-chevron-right"></i></a>
+                <div class="catalog-hero-bg-leaves">🌿</div>
             </div>
-        </main>
+        </header>
+
+        <section class="category-section">
+            <div class="section-title-area">
+                <p class="section-sub">Pilihan Event</p>
+                <h2>Category</h2>
+            </div>
+            
+            <div class="category-list-wrapper">
+                <div class="category-item active" data-category="all">
+                    <div class="cat-icon-circle"><i class="fas fa-th-large"></i></div>
+                    <span>Show All</span>
+                </div>
+                <div class="category-item" data-category="wedding">
+                    <div class="cat-icon-circle"><i class="fas fa-church"></i></div>
+                    <span>Wedding</span>
+                </div>
+                <div class="category-item" data-category="engagement">
+                    <div class="cat-icon-circle"><i class="fas fa-ring"></i></div>
+                    <span>Engagement</span>
+                </div>
+                <div class="category-item" data-category="birthday">
+                    <div class="cat-icon-circle"><i class="fas fa-birthday-cake"></i></div>
+                    <span>Birthday</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="products-section">
+            <div class="section-title-area">
+                <p class="section-sub">Rekomendasi Terbaik</p>
+                <h2>Popular Product</h2>
+            </div>
+
+            <div class="products-grid" id="catalog-products-grid">
+                
+                <div class="product-card" data-cat="wedding">
+                    <a href="detail_produk.html?id=1" class="product-img-link">
+                        <div class="product-img-box">
+                            <img src="images/wedding.jpg" alt="Rustic Intimate Backdrop">
+                            <div class="wishlist-badge"><i class="far fa-heart"></i></div>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-tag">Wedding</span>
+                        <h3>Rustic Intimate Backdrop</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i> <span>4.9</span> <small>(120 Reviews)</small>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price-container">
+                                <span class="price-label">Harga Sewa</span>
+                                <span class="product-price">Rp 5.500.000<small>/hari</small></span>
+                            </div>
+                            <a href="detail_produk.html?id=1" class="btn-view-detail">Detail <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-cat="wedding">
+                    <a href="detail_produk.html?id=2" class="product-img-link">
+                        <div class="product-img-box">
+                            <img src="images/wedding/wedding1.jpg" alt="Luxury White Botanical">
+                            <div class="wishlist-badge"><i class="far fa-heart"></i></div>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-tag">Wedding</span>
+                        <h3>Luxury White Botanical</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i> <span>5.0</span> <small>(240 Reviews)</small>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price-container">
+                                <span class="price-label">Harga Sewa</span>
+                                <span class="product-price">Rp 8.900.000<small>/hari</small></span>
+                            </div>
+                            <a href="detail_produk.html?id=2" class="btn-view-detail">Detail <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-cat="wedding">
+                    <a href="detail_produk.html?id=3" class="product-img-link">
+                        <div class="product-img-box">
+                            <img src="images/wedding/wedding2.jpg" alt="Traditional Javanese Modern">
+                            <div class="wishlist-badge"><i class="far fa-heart"></i></div>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-tag">Wedding</span>
+                        <h3>Traditional Javanese Modern</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i> <span>4.8</span> <small>(95 Reviews)</small>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price-container">
+                                <span class="price-label">Harga Sewa</span>
+                                <span class="product-price">Rp 6.800.000<small>/hari</small></span>
+                            </div>
+                            <a href="detail_produk.html?id=3" class="btn-view-detail">Detail <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-cat="wedding">
+                    <a href="detail_produk.html?id=4" class="product-img-link">
+                        <div class="product-img-box">
+                            <img src="images/wedding/wedding3.jpg" alt="Crimson Red Glamour">
+                            <div class="wishlist-badge"><i class="far fa-heart"></i></div>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-tag">Wedding</span>
+                        <h3>Crimson Blue Glamour</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i> <span>4.9</span> <small>(112 Reviews)</small>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price-container">
+                                <span class="price-label">Harga Sewa</span>
+                                <span class="product-price">Rp 7.500.000<small>/hari</small></span>
+                            </div>
+                            <a href="detail_produk.html?id=4" class="btn-view-detail">Detail <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-cat="engagement">
+                    <a href="detail_produk.html?id=5" class="product-img-link">
+                        <div class="product-img-box">
+                            <img src="images/engagement.jpg" alt="Modern Floral Ring">
+                            <div class="wishlist-badge"><i class="far fa-heart"></i></div>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-tag">Engagement</span>
+                        <h3>Modern Floral Ring</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i> <span>4.8</span> <small>(85 Reviews)</small>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price-container">
+                                <span class="price-label">Harga Sewa</span>
+                                <span class="product-price">Rp 3.200.000<small>/hari</small></span>
+                            </div>
+                            <a href="detail_produk.html?id=5" class="btn-view-detail">Detail <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-cat="engagement">
+                    <a href="detail_produk.html?id=6" class="product-img-link">
+                        <div class="product-img-box">
+                            <img src="images/engagement/enga2.jpg" alt="Minimalist Pastel Geometric">
+                            <div class="wishlist-badge"><i class="far fa-heart"></i></div>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-tag">Engagement</span>
+                        <h3>Minimalist Pastel Geometric</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i> <span>4.7</span> <small>(64 Reviews)</small>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price-container">
+                                <span class="price-label">Harga Sewa</span>
+                                <span class="product-price">Rp 2.500.000<small>/hari</small></span>
+                            </div>
+                            <a href="detail_produk.html?id=6" class="btn-view-detail">Detail <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-cat="engagement">
+                    <a href="detail_produk.html?id=7" class="product-img-link">
+                        <div class="product-img-box">
+                            <img src="images/engagement/enga3.jpg" alt="Elegant Wooden Hexagon">
+                            <div class="wishlist-badge"><i class="far fa-heart"></i></div>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-tag">Engagement</span>
+                        <h3>Elegant Wooden Hexagon</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i> <span>4.9</span> <small>(73 Reviews)</small>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price-container">
+                                <span class="price-label">Harga Sewa</span>
+                                <span class="product-price">Rp 2.900.000<small>/hari</small></span>
+                            </div>
+                            <a href="detail_produk.html?id=7" class="btn-view-detail">Detail <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-cat="engagement">
+                    <a href="detail_produk.html?id=8" class="product-img-link">
+                        <div class="product-img-box">
+                            <img src="images/engagement/enga1.jpg" alt="Chic Acrylic Light Decor">
+                            <div class="wishlist-badge"><i class="far fa-heart"></i></div>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-tag">Engagement</span>
+                        <h3>Chic Acrylic Light Decor</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i> <span>4.8</span> <small>(51 Reviews)</small>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price-container">
+                                <span class="price-label">Harga Sewa</span>
+                                <span class="product-price">Rp 3.500.000<small>/hari</small></span>
+                            </div>
+                            <a href="detail_produk.html?id=8" class="btn-view-detail">Detail <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-cat="birthday">
+                    <a href="detail_produk.html?id=9" class="product-img-link">
+                        <div class="product-img-box">
+                            <img src="images/birthday.jpg" alt="Pastel Balloon Wonderland">
+                            <div class="wishlist-badge"><i class="far fa-heart"></i></div>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-tag">Birthday</span>
+                        <h3>Pastel Balloon Wonderland</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i> <span>4.9</span> <small>(104 Reviews)</small>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price-container">
+                                <span class="price-label">Harga Sewa</span>
+                                <span class="product-price">Rp 1.800.000<small>/hari</small></span>
+                            </div>
+                            <a href="detail_produk.html?id=9" class="btn-view-detail">Detail <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-cat="birthday">
+                    <a href="detail_produk.html?id=10" class="product-img-link">
+                        <div class="product-img-box">
+                            <img src="images/birthday/birth3.jpg" alt="Neon Party Vibe Neon">
+                            <div class="wishlist-badge"><i class="far fa-heart"></i></div>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-tag">Birthday</span>
+                        <h3>Neon Party Vibe Neon</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i> <span>4.6</span> <small>(42 Reviews)</small>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price-container">
+                                <span class="price-label">Harga Sewa</span>
+                                <span class="product-price">Rp 2.200.000<small>/hari</small></span>
+                            </div>
+                            <a href="detail_produk.html?id=10" class="btn-view-detail">Detail <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-cat="birthday">
+                    <a href="detail_produk.html?id=11" class="product-img-link">
+                        <div class="product-img-box">
+                            <img src="images/birthday/birth2.jpg" alt="Kids Safari Jungle Theme">
+                            <div class="wishlist-badge"><i class="far fa-heart"></i></div>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-tag">Birthday</span>
+                        <h3>Kids Safari Jungle Theme</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i> <span>4.8</span> <small>(89 Reviews)</small>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price-container">
+                                <span class="price-label">Harga Sewa</span>
+                                <span class="product-price">Rp 1.500.000<small>/hari</small></span>
+                            </div>
+                            <a href="detail_produk.html?id=11" class="btn-view-detail">Detail <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-cat="birthday">
+                    <a href="detail_produk.html?id=12" class="product-img-link">
+                        <div class="product-img-box">
+                            <img src="images/birthday/birth1.jpg" alt="Gold & Black Elegant Night">
+                            <div class="wishlist-badge"><i class="far fa-heart"></i></div>
+                        </div>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-tag">Birthday</span>
+                        <h3>Gold Elegant Night</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i> <span>4.9</span> <small>(67 Reviews)</small>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price-container">
+                                <span class="price-label">Harga Sewa</span>
+                                <span class="product-price">Rp 2.800.000<small>/hari</small></span>
+                            </div>
+                            <a href="detail_produk.html?id=12" class="btn-view-detail">Detail <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <div id="global-footer"></div>
+
     </div>
 
-    <footer class="footer">
-        <div class="footer-wrapper">
-            <div class="footer-top">
-                <div class="footer-col brand-col">
-                    <h2 class="footer-logo">GDecors<span>.</span></h2>
-                    <p class="footer-tagline">Crafting Spaces, Creating Story. We turn your imagination into an unforgettable celebration.</p>
-                    <div class="footer-socials">
-                        <a href="http://instagram.com/gresik_decoration" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="#"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#" aria-label="mailto:hello@gdecors.com"><i class="fas fa-envelope"></i></a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Navigation</h4>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="katalog_produk.html">Our Catalog</a></li>
-                        <li><a href="#about">About Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Contact Us</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> Surabaya, East Java</p>
-                    <p><i class="fas fa-phone-alt"></i> +62 875 6567 57755</p>
-                    <p><i class="fas fa-clock"></i> Mon - Sat: 09.00 - 18.00</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 GDecors. All Rights Reserved. Designed for Excellence.</p>
-            </div>
-        </div>
-    </footer>
+    <script src="components.js"></script>
 
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // LOGIKA INTERAKTIF FILTER KATEGORI (Tetap dipertahankan)
+            const categoryItems = document.querySelectorAll('.category-item');
+            const productCards = document.querySelectorAll('.product-card');
+
+            categoryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    categoryItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const selectedCategory = this.getAttribute('data-category');
+
+                    productCards.forEach(card => {
+                        const cardCategory = card.getAttribute('data-cat');
+                        
+                        if (selectedCategory === 'all' || cardCategory === selectedCategory) {
+                            card.style.display = 'flex';
+                            setTimeout(() => { card.style.opacity = '1'; }, 10);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // SCRIPT MANIPULASI #nav-auth-container YANG LAMA SEKARANG SUDAH DIHAPUS 
+            // AGAR TIDAK BENTROK DENGAN DROPDOWN DARI COMPONENTS.JS
+        });
     </script>
 </body>
 </html>

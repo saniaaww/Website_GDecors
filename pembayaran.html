@@ -6,171 +6,85 @@
     <title>GDecors - Checkout Payment</title>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style_katalog.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        :root {
-            --primary-accent: #7D8471;
-            --bg-light: #F9F9F7;
-            --white: #ffffff;
-            --border-color: #e0e0e0;
+        body { font-family: 'Montserrat', sans-serif; background-color: #fbfcfa; color: #444; }
+        .checkout-container { max-width: 1150px; margin: 140px auto 60px; padding: 0 30px; box-sizing: border-box; display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: start; }
+        .form-card { background: #ffffff; border: 1px solid #F0F2EE; border-radius: 24px; padding: 40px; box-shadow: 0 10px 30px rgba(125, 132, 113, 0.03); margin-bottom: 30px; }
+        .form-card h2, .order-summary h2 { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; color: #1b3322; margin-top: 0; margin-bottom: 25px; font-weight: 700; }
+        .input-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .input-group label { font-size: 0.78rem; font-weight: 700; color: #6d7562; text-transform: uppercase; letter-spacing: 0.5px; }
+        .input-group input[type="text"], .input-group select { padding: 14px; border: 1px solid #E4E7E1; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; outline: none; color: #444; background-color: #ffffff; transition: all 0.3s ease; box-sizing: border-box; width: 100%; }
+        .input-group input:focus, .input-group select:focus { border-color: #7d8471; box-shadow: 0 0 0 3px rgba(125, 132, 113, 0.05); }
+        .payment-methods { display: flex; gap: 15px; margin-bottom: 25px; }
+        .pay-tab { flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px; border: 1px solid #E4E7E1; border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 0.9rem; color: #666; transition: all 0.3s ease; background: #fbfcfa; }
+        .pay-tab.active { border-color: #3d4831; color: #3d4831; background: #f4f6f3; box-shadow: 0 4px 12px rgba(61, 72, 49, 0.05); }
+        .order-summary { background: #ffffff; border: 1px solid #F0F2EE; border-radius: 24px; padding: 40px; box-shadow: 0 10px 30px rgba(125, 132, 113, 0.03); position: sticky; top: 140px; }
+        .voucher-box { display: flex; gap: 10px; background: #fbfcfa; border: 1px solid #E4E7E1; border-radius: 12px; padding: 8px; margin-bottom: 25px; }
+        .voucher-box input { flex: 1; border: none; background: transparent; padding: 10px 12px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; outline: none; text-transform: uppercase; font-weight: 600; }
+        .btn-apply { background: #7d8471; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Montserrat', sans-serif; transition: all 0.3s ease; }
+        .summary-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 0.95rem; color: #555; }
+        .summary-row strong { color: #1b3322; font-weight: 600; }
+        .summary-total { border-top: 1px dashed #E4E7E1; margin-top: 20px; padding-top: 20px; margin-bottom: 25px; }
+        #summary-grand-total { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 800; color: #7d8471; }
+        
+        /* Tombol Hijau ke Kuning */
+        .btn-pay { 
+            width: 100%; 
+            background: #7d8471; 
+            color: #ffffff; 
+            border: none; 
+            padding: 16px; 
+            font-size: 1rem; 
+            font-weight: 800; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-family: 'Montserrat', sans-serif; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 4px 15px rgba(125, 132, 113, 0.3); 
         }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-light);
-            margin: 0;
-            color: #333;
-        }
-
-        /* --- CONTAINER UTAMA --- */
-        .checkout-container {
-            max-width: 1200px;
-            margin: 140px auto 80px; /* 'auto' di sini yang bikin konten ke tengah */
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 40px;
-        }
-
-        .checkout-form-section {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .form-card {
-            background: var(--white);
-            padding: 35px;
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-        }
-
-        .form-card h2 {
-            font-size: 1.4rem;
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; }
-        .input-group input, .input-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            font-family: inherit;
-            box-sizing: border-box;
-        }
-
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-
-        .payment-methods {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .pay-tab {
-            border: 2px solid var(--border-color);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .pay-tab i { font-size: 1.5rem; margin-bottom: 10px; display: block; }
-        .pay-tab.active {
-            border-color: #6366f1;
-            background: #f8faff;
-            color: #6366f1;
-        }
-
-        .order-summary {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 24px;
-            height: fit-content;
-            position: sticky;
-            top: 120px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-        }
-
-        .voucher-box { display: flex; gap: 10px; margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid #eee; }
-        .btn-apply { background: #333; color: white; border: none; padding: 0 20px; border-radius: 10px; cursor: pointer; }
-
-        .summary-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.95rem; }
-        .summary-total { border-top: 2px solid #eee; margin-top: 20px; padding-top: 20px; font-size: 1.2rem; font-weight: 700; }
-
-        .btn-pay {
-            width: 100%;
-            background: var(--primary-accent);
-            color: white;
-            padding: 18px;
-            border: none;
-            border-radius: 15px;
-            font-size: 1rem;
-            font-weight: 700;
-            margin-top: 30px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        @media (max-width: 992px) {
-            .checkout-container { grid-template-columns: 1fr; }
-        }
+        .btn-pay:hover { opacity: 0.9; transform: translateY(-2px); }
+        .grid-3 { display: grid; grid-template-columns: 1.2fr 1fr 0.8fr; gap: 15px; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">GDecors</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#services">Services</a></li>
-            <li><a href="index.html#categories">Catalog</a></li>
-            <li><a href="index.html#about">About</a></li>
-        </ul>
-        <div class="nav-icons">
-            <a href="keranjang.html" style="color: inherit;"><i class="fas fa-shopping-cart"></i></a>
-        </div>
-    </nav>
+    <div id="global-navbar"></div>
 
     <div class="checkout-container">
-        
         <div class="checkout-form-section">
-            
             <div class="form-card" data-aos="fade-up">
-                <h2>Shipping Address</h2>
+                <h2>Shipping & Setup Address</h2>
                 <div class="input-group">
-                    <label>Name</label>
-                    <input type="text" placeholder="First & Last Name">
+                    <label>Full Name</label>
+                    <input type="text" id="cust-name" placeholder="First & Last Name" required>
                 </div>
                 <div class="input-group">
-                    <label>Address 1</label>
-                    <input type="text" placeholder="421, Surabaya Street">
-                </div>
-                <div class="input-group">
-                    <label>Address 2</label>
-                    <input type="text" placeholder="Apartment, suite, etc.">
+                    <label>Detail Venue Address</label>
+                    <input type="text" id="cust-address" placeholder="Building, Street, House No., etc." required>
                 </div>
                 <div class="grid-3">
                     <div class="input-group">
-                        <label>City</label>
-                        <input type="text" placeholder="City">
-                    </div>
-                    <div class="input-group">
-                        <label>State</label>
-                        <select>
-                            <option>Jawa Timur</option>
-                            <option>Jawa Tengah</option>
+                        <label>Location / City Zone</label>
+                        <select id="cust-city" onchange="calculateShipping()">
+                            <option value="surabaya-pusat" data-ongkir="100000">Central Surabaya (Rp 100,000)</option>
+                            <option value="surabaya-barat" data-ongkir="150000">West Surabaya (Rp 150,000)</option>
+                            <option value="surabaya-timur" data-ongkir="120000">East Surabaya (Rp 120,000)</option>
+                            <option value="surabaya-selatan" data-ongkir="130000">South Surabaya (Rp 130,000)</option>
+                            <option value="gresik-kota" data-ongkir="50000">Gresik City (Rp 50,000)</option>
+                            <option value="gresik-luar" data-ongkir="200000">Outside Gresik (Rp 200,000)</option>
+                            <option value="sidoarjo" data-ongkir="250000">Sidoarjo (Rp 250,000)</option>
                         </select>
                     </div>
                     <div class="input-group">
-                        <label>Zip</label>
+                        <label>State</label>
+                        <select><option>East Java</option></select>
+                    </div>
+                    <div class="input-group">
+                        <label>Zip Code</label>
                         <input type="text" placeholder="Zip code">
                     </div>
                 </div>
@@ -180,120 +94,153 @@
                 <h2>Payment Method</h2>
                 <div class="payment-methods">
                     <div class="pay-tab active" onclick="switchPayment('card')">
-                        <i class="far fa-credit-card"></i>
-                        <span>Card</span>
+                        <i class="far fa-credit-card"></i> <span>Bank Transfer</span>
                     </div>
                     <div class="pay-tab" onclick="switchPayment('wallet')">
-                        <i class="fas fa-wallet"></i>
-                        <span>Wallet</span>
+                        <i class="fas fa-wallet"></i> <span>E-Wallet</span>
                     </div>
                 </div>
-
                 <div id="payment-form-container">
                     <div id="form-card">
                         <div class="input-group">
-                            <label>Name on Card</label>
-                            <input type="text" placeholder="First & Last Name">
-                        </div>
-                        <div class="input-group">
-                            <label>Card Number</label>
-                            <input type="text" placeholder="0000 0000 0000 0000">
-                        </div>
-                        <div class="grid-3">
-                            <div class="input-group"><label>Expiry</label><input type="text" placeholder="MM/YY"></div>
-                            <div class="input-group"><label>CVV</label><input type="password" placeholder="***"></div>
+                            <label>Bank Name</label>
+                            <select><option>Bank BCA (Manual Verification)</option><option>Bank Mandiri</option><option>Bank BNI</option></select>
                         </div>
                     </div>
-
                     <div id="form-wallet" style="display: none;">
-                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Choose your E-Wallet:</p>
                         <div class="input-group">
-                            <select>
-                                <option>GoPay</option>
-                                <option>OVO</option>
-                                <option>ShopeePay</option>
-                                <option>DANA</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label>Phone Number</label>
-                            <input type="text" placeholder="0812-xxxx-xxxx">
+                            <label>E-Wallet</label>
+                            <select><option>GoPay</option><option>OVO</option><option>DANA</option><option>ShopeePay</option></select>
                         </div>
                     </div>
                 </div>
-            </div> </div> <aside class="order-summary" data-aos="fade-left">
-            <h2 style="margin-top:0;">Order Summary</h2>
+            </div> 
+        </div> 
+
+        <aside class="order-summary" data-aos="fade-left">
+            <h2>Order Summary</h2>
             <div class="voucher-box">
-                <input type="text" placeholder="Voucher Code" style="flex:1; padding:10px; border-radius:10px; border:1px solid #ddd;">
-                <button class="btn-apply">Apply</button>
+                <input type="text" id="voucher-code" placeholder="Voucher Code">
+                <button class="btn-apply" onclick="applyVoucher()">Apply</button>
             </div>
-            <div class="summary-row">
-                <span>Subtotal</span>
-                <strong>Rp 10.700.000</strong>
-            </div>
-            <div class="summary-row">
-                <span>Shipping (Surabaya)</span>
-                <strong>Rp 150.000</strong>
-            </div>
-            <div class="summary-row" style="color: #2ecc71;">
-                <span>Voucher Discount</span>
-                <strong>- Rp 200.000</strong>
-            </div>
-            <div class="summary-row summary-total">
-                <span>Total Payment</span>
-                <span style="color:var(--primary-accent);">Rp 10.650.000</span>
-            </div>
-            <button class="btn-pay" onclick="alert('Payment Successful!')">Confirm & Pay Now</button>
+            <div class="summary-row"><span>Rental Subtotal</span><strong id="summary-subtotal">Rp 0</strong></div>
+            <div class="summary-row"><span>Delivery & Setup</span><strong id="summary-shipping">Rp 0</strong></div>
+            <div class="summary-row" style="color: #2ecc71; display: none;" id="row-discount"><span>Voucher Discount</span><strong id="summary-discount">- Rp 0</strong></div>
+            <div class="summary-row summary-total"><span>Total Payment</span><span id="summary-grand-total">Rp 0</span></div>
+            <button class="btn-pay" onclick="processPayment()">Confirm & Pay Now</button>
         </aside>
-
     </div> 
-     <footer class="footer">
-        <div class="footer-wrapper">
-            <div class="footer-top">
-                <div class="footer-col brand-col">
-                    <h2 class="footer-logo">GDecors<span>.</span></h2>
-                    <p class="footer-tagline">Crafting Spaces, Creating Story. We turn your imagination into an unforgettable celebration.</p>
-                    <div class="footer-socials">
-                        <a href="http://instagram.com/gresik_decoration" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="#"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#" aria-label="mailto:hello@gdecors.com"><i class="fas fa-envelope"></i></a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Navigation</h4>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="katalog_produk.html">Our Catalog</a></li>
-                        <li><a href="#about">About Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Contact Us</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> Surabaya, East Java</p>
-                    <p><i class="fas fa-phone-alt"></i> +62 875 6567 57755</p>
-                    <p><i class="fas fa-clock"></i> Mon - Sat: 09.00 - 18.00</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 GDecors. All Rights Reserved. Designed for Excellence.</p>
-            </div>
-        </div>
-    </footer>
 
+    <div id="global-footer"></div>
+
+    <script src="components.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
+        let baseSubtotal = 0, shippingCost = 0, discountAmount = 0, selectedPaymentMethod = 'card';
+
+        document.addEventListener("DOMContentLoaded", () => loadCheckoutData());
+
+        function loadCheckoutData() {
+            let checkoutItems = JSON.parse(localStorage.getItem('gdecors_checkout_items')) || [];
+            if (checkoutItems.length === 0) {
+                let directItem = localStorage.getItem('gdecors_direct_checkout');
+                if (directItem) checkoutItems = [JSON.parse(directItem)];
+            }
+            if (checkoutItems.length === 0) { window.location.href = 'keranjang.html'; return; }
+            let total = 0;
+            checkoutItems.forEach(item => {
+                const sDate = new Date(item.startDate), eDate = new Date(item.endDate);
+                const diffDays = Math.ceil(Math.abs(eDate - sDate) / (1000 * 60 * 60 * 24)) + 1;
+                total += (item.price * diffDays);
+            });
+            baseSubtotal = total;
+            document.getElementById('summary-subtotal').textContent = formatRupiah(baseSubtotal);
+            calculateShipping();
+        }
+
+        function calculateShipping() {
+            const citySelect = document.getElementById('cust-city');
+            shippingCost = parseInt(citySelect.options[citySelect.selectedIndex].getAttribute('data-ongkir')) || 0;
+            document.getElementById('summary-shipping').textContent = formatRupiah(shippingCost);
+            updateGrandTotal();
+        }
+
+        function applyVoucher() {
+            const code = document.getElementById('voucher-code').value.trim().toUpperCase();
+            if (code === "GDECORS2026" || code === "MABAUNAIR") {
+                discountAmount = 200000;
+                document.getElementById('row-discount').style.display = "flex";
+                document.getElementById('summary-discount').textContent = "- " + formatRupiah(discountAmount);
+            } else { alert("Invalid voucher code!"); discountAmount = 0; document.getElementById('row-discount').style.display = "none"; }
+            updateGrandTotal();
+        }
+
+        function updateGrandTotal() { document.getElementById('summary-grand-total').textContent = formatRupiah(baseSubtotal + shippingCost - discountAmount); }
+        function formatRupiah(angka) { return "Rp " + angka.toLocaleString('id-ID'); }
 
         function switchPayment(method) {
-            const tabs = document.querySelectorAll('.pay-tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
+            selectedPaymentMethod = method;
+            document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
             event.currentTarget.classList.add('active');
-
-            document.getElementById('form-card').style.display = 'none';
-            document.getElementById('form-wallet').style.display = 'none';
-            document.getElementById('form-' + method).style.display = 'block';
+            document.getElementById('form-card').style.display = method === 'card' ? 'block' : 'none';
+            document.getElementById('form-wallet').style.display = method === 'wallet' ? 'block' : 'none';
         }
+
+// Di dalam file pembayaran.html, perbaiki fungsi processPayment menjadi seperti ini:
+
+function processPayment() {
+    // 1. Validasi
+    const custName = document.getElementById('cust-name').value;
+    const custAddress = document.getElementById('cust-address').value;
+
+    if (!custName || !custAddress) {
+        alert("Please complete your shipping details first!"); 
+        return;
+    }
+
+    // 2. Ambil data untuk disimpan
+    const totalRaw = baseSubtotal + shippingCost - discountAmount; // Ambil nilai angka asli (bukan string)
+    const totalFormatted = document.getElementById('summary-grand-total').innerText;
+    
+    // 3. Simpan setting pembayaran ke localStorage
+    localStorage.setItem('gdecors_total_payment', totalFormatted);
+    localStorage.setItem('gdecors_payment_method', selectedPaymentMethod);
+    
+    // 4. Siapkan Data History
+    let checkoutItems = JSON.parse(localStorage.getItem('gdecors_checkout_items')) || [];
+    if (checkoutItems.length === 0) checkoutItems = [JSON.parse(localStorage.getItem('gdecors_direct_checkout'))];
+    
+    let history = JSON.parse(localStorage.getItem('gdecors_history')) || [];
+    
+    // Buat objek transaksi baru dengan data lengkap
+    let newTransaction = {
+        invoice: "INV/" + Date.now().toString().slice(-6),
+        date: new Date().toLocaleDateString('en-GB'),
+        items: checkoutItems.map(i => i.title).join(', '),
+        total: totalRaw, // Simpan angka untuk kemudahan kalkulasi
+        totalFormatted: totalFormatted, // Simpan format string untuk tampilan
+        status: 'Pending Verification',
+        customerName: custName,
+        address: custAddress,
+        paymentMethod: selectedPaymentMethod
+    };
+    
+    history.push(newTransaction);
+    
+    // BATASAN: Hanya simpan 3 transaksi terakhir
+    if (history.length > 3) {
+        history = history.slice(-3);
+    }
+    
+    // 5. Simpan ke LocalStorage
+    localStorage.setItem('gdecors_history', JSON.stringify(history));
+    localStorage.removeItem('gdecors_checkout_items');
+    localStorage.removeItem('gdecors_direct_checkout');
+    
+    // 6. Redirect
+    window.location.href = 'proses_bayar.html';
+}
     </script>
 </body>
 </html>

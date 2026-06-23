@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDecors Admin - Data Pengguna</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #F8F9F7; color: #2C302E; }
+        .admin-wrapper { display: flex; min-height: 100vh; transition: all 0.3s; }
+
+        /* Sidebar */
+        .admin-sidebar { width: 260px; background: #3d4831; color: white; padding: 30px; position: fixed; height: 100vh; transition: all 0.3s; overflow: hidden; }
+        .brand { font-family: 'Playfair Display'; font-size: 2rem; font-weight: 800; margin-bottom: 50px; color: #A8B5A7; display: flex; align-items: center; gap: 15px; }
+        .sidebar-menu { list-style: none; }
+        .sidebar-menu li { margin-bottom: 15px; }
+        .sidebar-menu li a { text-decoration: none; color: #D1D5DB; display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; transition: 0.3s; }
+        .sidebar-menu li.active a, .sidebar-menu li a:hover { background: #353c2d; color: #fff; }
+
+        /* Burger Toggle */
+        .toggle-btn { background: none; border: none; color: #A8B5A7; cursor: pointer; font-size: 1.2rem; transition: 0.3s; }
+        .toggle-btn:hover { color: white; }
+
+        /* State Collapse */
+        .admin-sidebar.collapsed { width: 80px; padding: 30px 15px; }
+        .admin-sidebar.collapsed .brand span, .admin-sidebar.collapsed .menu-text { display: none; }
+        .admin-sidebar.collapsed .sidebar-menu li a { justify-content: center; }
+        .admin-main.expanded { margin-left: 80px; }
+
+        /* Main Content */
+        .admin-main { flex: 1; margin-left: 260px; padding: 40px; transition: all 0.3s; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        
+        /* Tabel Premium */
+        .table-responsive { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .table-premium { width: 100%; border-collapse: collapse; }
+        .table-premium thead { background: linear-gradient(135deg, #3d4831 0%, #5a6650 100%); color: white; }
+        .table-premium th { padding: 18px; text-align: left; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px; }
+        .table-premium td { padding: 18px; border-bottom: 1px solid #edf2ed; font-size: 0.95rem; }
+
+        /* Modal */
+        .modal-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-box { background: white; padding: 30px; border-radius: 16px; width: 500px; max-height: 90vh; overflow-y: auto; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
+        
+        /* Buttons */
+        .btn-add-new { background: #3d4831; color: white; border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; }
+        .btn-edit { background: #E0E7DE; color: #3d4831; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; margin-right: 5px; }
+        .btn-delete { background: #FEE2E2; color: #DC2626; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        .btn-cancel { background: #F3F4F6; color: #374151; border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-wrapper">
+        <aside class="admin-sidebar" id="sidebar">
+            <div class="brand">
+                <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+                <span>GDecors.</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="admin_dashboard.html"><i class="fas fa-th-large"></i> <span class="menu-text">Dashboard</span></a></li>
+                <li><a href="admin_artikel.html"><i class="fas fa-newspaper"></i> <span class="menu-text">Kelola Artikel</span></a></li>
+                <li><a href="admin_produk.html"><i class="fas fa-boxes"></i> <span class="menu-text">Kelola Produk</span></a></li>
+                <li class="active"><a href="admin_pengguna.html"><i class="fas fa-users"></i> <span class="menu-text">Kelola Pengguna</span></a></li>
+                <li><a href="admin_transaksi.html"><i class="fas fa-receipt"></i> <span class="menu-text">Kelola Transaksi</span></a></li>
+                <li style="margin-top: 40px;">
+                    <a href="../index.html" onclick="localStorage.clear();" style="color: #FEB2B2;">
+                        <i class="fas fa-sign-out-alt"></i> <span class="menu-text">Keluar</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="admin-main" id="main-content">
+            <div class="admin-header">
+                <h1>Data Akun Pengguna</h1>
+                <button class="btn-add-new" onclick="openModal()"><i class="fas fa-plus"></i> Tambah User</button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table-premium">
+                    <thead>
+                        <tr><th>Nama Customer</th><th>Alamat Email</th><th>Aksi</th></tr>
+                    </thead>
+                    <tbody id="user-table-body"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="userModal">
+        <div class="modal-box">
+            <h3 id="modal-title" style="margin-bottom: 20px;">Tambah User Baru</h3>
+            <input type="hidden" id="edit-id">
+            <div class="form-group"><label>Nama Lengkap</label><input type="text" id="user-name"></div>
+            <div class="form-group"><label>Alamat Email</label><input type="email" id="user-email"></div>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button class="btn-add-new" onclick="saveData()">Simpan Data</button>
+                <button class="btn-cancel" onclick="closeModal()">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+            document.getElementById('main-content').classList.toggle('expanded');
+        }
+
+        let userList = JSON.parse(localStorage.getItem('usersGDecors')) || [
+            { id: 1, nama: "Sania Putri", email: "sania@mail.com" },
+            { id: 2, nama: "Robbi Hermawan", email: "robbi@mail.com" }
+        ];
+
+        function render() {
+            const tbody = document.getElementById('user-table-body');
+            tbody.innerHTML = userList.map(u => `
+                <tr>
+                    <td style="font-weight:700;">${u.nama}</td>
+                    <td>${u.email}</td>
+                    <td>
+                        <button class="btn-edit" onclick="editData(${u.id})">Edit</button>
+                        <button class="btn-delete" onclick="deleteData(${u.id})">Hapus</button>
+                    </td>
+                </tr>
+            `).join('');
+            localStorage.setItem('usersGDecors', JSON.stringify(userList));
+        }
+
+        function openModal(title = "Tambah User Baru") {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('userModal').style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('userModal').style.display = 'none'; }
+
+        function saveData() {
+            const id = document.getElementById('edit-id').value;
+            const nm = document.getElementById('user-name').value;
+            const em = document.getElementById('user-email').value;
+            
+            if(id) {
+                let idx = userList.findIndex(u => u.id == id);
+                userList[idx] = { id: parseInt(id), nama: nm, email: em };
+            } else {
+                userList.push({ id: Date.now(), nama: nm, email: em });
+            }
+            render(); closeModal();
+        }
+
+        function editData(id) {
+            let u = userList.find(i => i.id == id);
+            document.getElementById('edit-id').value = u.id;
+            document.getElementById('user-name').value = u.nama;
+            document.getElementById('user-email').value = u.email;
+            openModal("Edit User");
+        }
+
+        function deleteData(id) {
+            if(confirm("Hapus pengguna ini?")) {
+                userList = userList.filter(u => u.id !== id);
+                render();
+            }
+        }
+        render();
+    </script>
+</body>
+</html>

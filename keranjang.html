@@ -5,271 +5,229 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GDecors - Your Cart</title>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700&family=Montserrat:wght=300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    
+    <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --primary-accent: #7D8471;
-            --bg-light: #F9F9F7;
-            --white: #ffffff;
+        .cart-checkbox {
+            width: 18px;
+            height: 18px;
+            accent-color: #7D8471;
+            cursor: pointer;
         }
-
-        body {
+        .select-all-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-light);
-            margin: 0;
-        }
-
-        .cart-container {
-            max-width: 1000px;
-            margin: 140px auto 80px;
-            padding: 40px;
-            background: var(--white);
-            border-radius: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
-        }
-
-        .cart-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .cart-table th {
-            text-align: left;
-            padding-bottom: 20px;
-            color: #888;
-            font-weight: 600;
             font-size: 0.9rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .cart-item {
-            border-bottom: 1px solid #eee;
-        }
-
-        .cart-item td {
-            padding: 25px 0;
-            vertical-align: middle;
-        }
-
-        /* Product Info Styling */
-        .prod-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .prod-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 20px;
-            object-fit: cover;
-            background: #f4f4f4;
-        }
-
-        .prod-details h3 {
-            margin: 0 0 5px 0;
-            font-size: 1.1rem;
-            color: #1a1a1a;
-        }
-
-        .prod-details p {
-            margin: 0;
-            font-size: 0.85rem;
-            color: #999;
-        }
-
-        /* Quantity Controls */
-        .qty-control {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            border: 1px solid #ddd;
-            padding: 8px 18px;
-            border-radius: 50px;
-        }
-
-        .qty-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.1rem;
-            color: #333;
-            transition: 0.3s;
-        }
-
-        .qty-btn:hover { color: var(--primary-accent); }
-
-        .qty-val { font-weight: 700; min-width: 20px; text-align: center; }
-
-        /* Total & Action */
-        .total-price {
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: #1a1a1a;
-        }
-
-        .btn-delete {
-            background: none;
-            border: none;
-            color: #333;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: 0.3s;
-        }
-
-        .btn-delete:hover { color: #ff4d4d; }
-
-        /* Summary Section */
-        .cart-footer {
-            margin-top: 40px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .grand-total span {
-            color: #888;
-            margin-right: 10px;
-        }
-
-        .btn-checkout {
-            background: var(--primary-accent);
-            color: white;
-            padding: 15px 40px;
-            border-radius: 15px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: 0.3s;
-        }
-
-        .btn-checkout:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(125, 132, 113, 0.3); }
-
-        @media (max-width: 768px) {
-            .cart-container { padding: 20px; margin: 100px 15px; }
-            .cart-table th:nth-child(2), .cart-table td:nth-child(2) { display: none; } /* Sembunyikan kolom Qty di mobile */
+            color: #555;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #F0F2EE;
         }
     </style>
 </head>
 <body>
 
-     <nav class="navbar">
-        <div class="logo">GDecors</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#services">Services</a></li>
-            <li><a href="index.html#categories">Catalog</a></li>
-            <li><a href="index.html#about">About</a></li>
-        </ul>
-        <div class="nav-icons">
-            <a href="keranjang.html" style="color: inherit;"><i class="fas fa-shopping-cart"></i></a>
-        </div>
-    </nav>
+    <div id="global-navbar"></div>
 
-    <div class="cart-container" data-aos="fade-up">
-        <table class="cart-table">
-            <thead>
-                <tr>
-                    <th>Product Code</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                    <th style="text-align: right;">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="cart-item">
-                    <td>
-                        <div class="prod-info">
-                            <img src="images/wedding.jpg" alt="Furniture" class="prod-img">
-                            <div class="prod-details">
-                                <h3>Engagement Decor Nature</h3>
-                                <p>Set : Colour: Coffee</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="qty-control">
-                            <button class="qty-btn">+</button>
-                            <span class="qty-val">4</span>
-                            <button class="qty-btn">-</button>
-                        </div>
-                    </td>
-                    <td><span class="total-price">Rp 6.500.000</span></td>
-                    <td style="text-align: right;"><button class="btn-delete"><i class="far fa-trash-can"></i></button></td>
-                </tr>
+    <div class="main-wrapper">
 
-                <tr class="cart-item">
-                    <td>
-                        <div class="prod-info">
-                            <img src="images/engagement.jpg" alt="Dining Set" class="prod-img">
-                            <div class="prod-details">
-                                <h3>Wedding Outdoor Nature</h3>
-                                <p>Set : Colour: Green</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="qty-control">
-                            <button class="qty-btn">+</button>
-                            <span class="qty-val">2</span>
-                            <button class="qty-btn">-</button>
-                        </div>
-                    </td>
-                    <td><span class="total-price">Rp 4.200.000</span></td>
-                    <td style="text-align: right;"><button class="btn-delete"><i class="far fa-trash-can"></i></button></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="cart-footer">
-            <div class="grand-total">
-                <p><span>Subtotal:</span> <strong style="font-size: 1.4rem;">Rp 10.700.000</strong></p>
+        <div class="cart-container" data-aos="fade-up" style="max-width: 1000px; margin: 120px auto 60px; padding: 20px;">
+            <h2 style="font-family: 'Montserrat', sans-serif; font-size: 1.8rem; margin-bottom: 20px; color: #1b3322;">Items in Your Cart</h2>
+            
+            <div class="select-all-wrapper">
+                <input type="checkbox" id="select-all-cart" class="cart-checkbox" checked onchange="toggleSelectAll(this)">
+                <label for="select-all-cart" style="cursor: pointer; font-weight: 600;">Select All Items</label>
             </div>
-            <a href="pembayaran.html" class="btn-checkout">Checkout Now</a>
+
+            <table class="cart-table" style="width: 100%; border-collapse: collapse;">
+                <tbody id="cart-items-container">
+                </tbody>
+            </table>
+
+            <div class="cart-footer" style="margin-top: 40px; padding: 25px; background: #fdfdfb; border: 1px solid #F0F2EE; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                <div class="grand-total">
+                    <p style="margin: 0 0 5px 0; color: #666; font-size: 0.9rem; font-family: 'Montserrat', sans-serif;">Rental Summary Total (<span id="checked-count">0</span> items selected):</p>
+                    <strong style="font-size: 1.8rem; color: #444; font-family: 'Montserrat', sans-serif;" id="subtotal-label">Rp 0</strong>
+                </div>
+                <button onclick="proceedToCheckout()" class="btn-checkout" style="background: #7D8471; color: white; border: none; padding: 18px 45px; font-size: 1rem; font-weight: 700; border-radius: 12px; cursor: pointer; font-family: 'Montserrat', sans-serif; box-shadow: 0 4px 15px rgba(125, 132, 113, 0.2); transition: all 0.3s ease;">
+                    Checkout Now <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
+                </button>
+            </div>
         </div>
+
     </div>
 
-   <footer class="footer">
-        <div class="footer-wrapper">
-            <div class="footer-top">
-                <div class="footer-col brand-col">
-                    <h2 class="footer-logo">GDecors<span>.</span></h2>
-                    <p class="footer-tagline">Crafting Spaces, Creating Story. We turn your imagination into an unforgettable celebration.</p>
-                    <div class="footer-socials">
-                        <a href="http://instagram.com/gresik_decoration" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="#"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#" aria-label="mailto:hello@gdecors.com"><i class="fas fa-envelope"></i></a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Navigation</h4>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#categories">Our Catalog</a></li>
-                        <li><a href="#about">About Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Contact Us</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> Surabaya, East Java</p>
-                    <p><i class="fas fa-phone-alt"></i> +62 875 6567 57755</p>
-                    <p><i class="fas fa-clock"></i> Mon - Sat: 09.00 - 18.00</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 GDecors. All Rights Reserved. Designed for Excellence.</p>
-            </div>
-        </div>
-    </footer>
+    <div id="global-footer"></div>
 
-
+    <script src="components.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
+
+        let itemPricesMemory = [];
+
+        document.addEventListener("DOMContentLoaded", function() {
+            loadCartItems();
+            updateCartBadge();
+        });
+
+        function loadCartItems() {
+            const tbody = document.getElementById('cart-items-container');
+            let cart = JSON.parse(localStorage.getItem('gdecors_cart')) || [];
+
+            if (cart.length === 0) {
+                showEmptyCart();
+                return;
+            }
+
+            tbody.innerHTML = '';
+            itemPricesMemory = []; 
+
+            cart.forEach((item, index) => {
+                const sDate = new Date(item.startDate);
+                const eDate = new Date(item.endDate);
+                const diffTime = Math.abs(eDate - sDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+                const basePricePerDay = item.price; 
+                const itemTotalPrice = basePricePerDay * diffDays;
+
+                itemPricesMemory.push({
+                    index: index,
+                    totalPrice: itemTotalPrice
+                });
+
+                const formatDate = (dateStr) => {
+                    const d = new Date(dateStr);
+                    return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+                };
+
+                const row = document.createElement('tr');
+                row.className = 'cart-item';
+                row.style.borderBottom = '1px solid #f0f0f0';
+                row.innerHTML = `
+                    <td style="padding: 20px 10px 20px 0; width: 40px; text-align: center;">
+                        <input type="checkbox" class="cart-checkbox item-check" data-index="${index}" checked onchange="calculateSubtotal()">
+                    </td>
+                    <td style="padding: 20px 0;">
+                        <div class="prod-info" style="display: flex; align-items: center; gap: 20px;">
+                            <img src="${item.imgSrc}" alt="${item.title}" class="prod-img" style="width: 100px; height: 100px; object-fit: cover; border-radius: 12px;">
+                            <div class="prod-details">
+                                <h3 style="margin: 0 0 5px 0; font-family: 'Monserrat', sans-serif; font-size: 1.3rem;">${item.title}</h3>
+                                <p style="margin: 0; color: #888; font-size: 0.85rem;">${item.category} (Rp ${basePricePerDay.toLocaleString('id-ID')}/day)</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="padding: 20px 0;">
+                        <div class="rental-schedule-info" style="font-size: 0.9rem; color: #444;">
+                            <div style="margin-bottom: 4px;"><i class="fas fa-calendar-alt" style="color: #7D8471; width: 20px;"></i> <b>Start:</b> ${formatDate(item.startDate)}</div>
+                            <div style="margin-bottom: 8px;"><i class="fas fa-calendar-check" style="color: #7D8471; width: 20px;"></i> <b>End:</b> ${formatDate(item.endDate)}</div>
+                            <span class="rental-duration-badge" style="background: #F0F2EE; color: #7D8471; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; display: inline-block;">${diffDays} Rental Days</span>
+                        </div>
+                    </td>
+                    <td style="padding: 20px 0;"><span class="total-price" style="font-weight: 700; font-size: 1.1rem;">Rp ${itemTotalPrice.toLocaleString('id-ID')}</span></td>
+                    <td style="padding: 20px 0; text-align: right;">
+                        <button class="btn-delete" onclick="removeItem(${index})" style="background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 1.2rem; transition: 0.2s;"><i class="far fa-trash-can"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            calculateSubtotal();
+        }
+
+        function calculateSubtotal() {
+            const checkboxes = document.querySelectorAll('.item-check');
+            const subtotalLabel = document.getElementById('subtotal-label');
+            const checkedCountLabel = document.getElementById('checked-count');
+            const selectAllCheckbox = document.getElementById('select-all-cart');
+            
+            let currentSubtotal = 0;
+            let checkedCount = 0;
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    const idx = parseInt(checkbox.getAttribute('data-index'));
+                    const memoryItem = itemPricesMemory.find(m => m.index === idx);
+                    if (memoryItem) {
+                        currentSubtotal += memoryItem.totalPrice;
+                    }
+                    checkedCount++;
+                }
+            });
+
+            subtotalLabel.textContent = `Rp ${currentSubtotal.toLocaleString('id-ID')}`;
+            checkedCountLabel.textContent = checkedCount;
+
+            if (selectAllCheckbox) {
+                selectAllCheckbox.checked = (checkedCount === checkboxes.length && checkboxes.length > 0);
+            }
+        }
+
+        function toggleSelectAll(masterCheckbox) {
+            const checkboxes = document.querySelectorAll('.item-check');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = masterCheckbox.checked;
+            });
+            calculateSubtotal();
+        }
+
+        function removeItem(index) {
+            if (confirm("Are you sure you want to remove this decoration from your cart?")) {
+                let cart = JSON.parse(localStorage.getItem('gdecors_cart')) || [];
+                cart.splice(index, 1);
+                localStorage.setItem('gdecors_cart', JSON.stringify(cart));
+                loadCartItems(); 
+                updateCartBadge();
+            }
+        }
+
+        function proceedToCheckout() {
+            let cart = JSON.parse(localStorage.getItem('gdecors_cart')) || [];
+            const checkboxes = document.querySelectorAll('.item-check');
+            
+            let checkoutItems = [];
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    const idx = parseInt(checkbox.getAttribute('data-index'));
+                    checkoutItems.push(cart[idx]);
+                }
+            });
+            
+            if (checkoutItems.length === 0) {
+                alert("Please select at least one item to proceed to checkout!");
+                return;
+            }
+            
+            localStorage.setItem('gdecors_checkout_items', JSON.stringify(checkoutItems));
+            window.location.href = 'pembayaran.html';
+        }
+
+        function showEmptyCart() {
+            const container = document.querySelector('.cart-container');
+            container.innerHTML = `
+                <div style="text-align: center; padding: 40px 20px 60px 20px;">
+                    <i class="fas fa-shopping-basket" style="font-size: 4rem; color: #ccc; margin-bottom: 20px;"></i>
+                    <h3 style="color: #444; margin-bottom: 10px; font-family: 'Playfair Display', serif; font-size: 1.8rem;">Your cart is empty!</h3>
+                    <p style="color: #888; font-size: 0.9rem; margin-bottom: 25px; font-family: 'Montserrat', sans-serif;">Let's go back and find your dream decorations.</p>
+                    <a href="katalog_produk.html" class="btn-checkout" style="display: inline-block; background: #7D8471; color: white; text-decoration: none; padding: 15px 35px; border-radius: 10px; font-weight: 600;">View Catalog</a>
+                </div>
+            `;
+        }
+
+        function updateCartBadge() {
+            setTimeout(() => {
+                let cart = JSON.parse(localStorage.getItem('gdecors_cart')) || [];
+                const badge = document.querySelector('.cart-badge');
+                if (badge) {
+                    badge.textContent = cart.length;
+                }
+            }, 150);
+        }
     </script>
 </body>
 </html>

@@ -25,7 +25,7 @@
 
         .article-wrapper {
             max-width: 1200px;
-            margin: 120px auto 60px;
+            margin: 140px auto 60px; /* Ditambah sedikit margin-top agar tidak tertutup navbar baru */
             padding: 0 20px;
             display: flex;
             gap: 50px;
@@ -37,7 +37,7 @@
         }
 
         .article-header h1 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 2.8rem;
             line-height: 1.2;
             margin-bottom: 20px;
@@ -67,7 +67,7 @@
         }
 
         .article-body h2 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Montserrat', sans-serif;
             margin: 40px 0 20px;
         }
 
@@ -113,7 +113,7 @@
 
         /* Related Articles Sidebar */
         .related-section h4 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 1.4rem;
             margin-bottom: 25px;
         }
@@ -148,7 +148,7 @@
         }
 
         @media (max-width: 992px) {
-            .article-wrapper { flex-direction: column; }
+            .article-wrapper { flex-direction: column; margin-top: 100px; }
             .article-sidebar { order: 2; }
             .article-header h1 { font-size: 2rem; }
         }
@@ -156,52 +156,41 @@
 </head>
 <body>
 
-     <nav class="navbar">
-        <div class="logo">GDecors</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#services">Services</a></li>
-            <li><a href="index.html#categories">Catalog</a></li>
-            <li><a href="index.html#about">About</a></li>
-        </ul>
-        <div class="nav-icons">
-            <a href="keranjang.html" style="color: inherit;"><i class="fas fa-shopping-cart"></i></a>
-        </div>
-    </nav>
+    <div id="global-navbar"></div>
 
     <div class="article-wrapper">
         <main class="main-article" data-aos="fade-up">
-    <div class="article-header">
-        <div class="article-meta">
-            <div class="author-img" style="background: #7D8471; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem;">GD</div>
-            <p><strong>Admin GDecors</strong> • Budgeting • Mei 15, 2026</p>
-        </div>
-        <h1>Elegansi Tanpa Mahal: Rahasia Dekorasi Mewah dengan Budget Terbatas</h1>
-    </div>
+            <div class="article-header">
+                <div class="article-meta">
+                    <div class="author-img" style="background: #7D8471; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem;">GD</div>
+                    <p><strong>Admin GDecors</strong> • Budgeting • Mei 15, 2026</p>
+                </div>
+                <h1>Elegansi Tanpa Mahal: Rahasia Dekorasi Mewah dengan Budget Terbatas</h1>
+            </div>
 
-    <img src="images/wedding.jpg" alt="Mewah Budget Terbatas" class="featured-image">
+            <img src="images/wedding.jpg" alt="Mewah Budget Terbatas" class="featured-image">
 
-    <div class="article-body">
-        <p>Banyak calon pengantin yang merasa "patah hati" duluan pas liat daftar harga dekorasi. Padahal, pernikahan impian yang terlihat *high-end* nggak selalu harus menguras tabungan masa depan lo. Di GDecors, kami percaya bahwa kreativitas jauh lebih mahal harganya daripada sekadar material mewah.</p>
-        
-        <p>Gimana caranya bikin dekorasi minimalis lo terlihat seperti pesta jutawan? Yuk, intip rahasia dapur kami!</p>
+            <div class="article-body">
+                <p>Banyak calon pengantin yang merasa "patah hati" duluan pas liat daftar harga dekorasi. Padahal, pernikahan impian yang terlihat *high-end* nggak selalu harus menguras tabungan masa depan lo. Di GDecors, kami percaya bahwa kreativitas jauh lebih mahal harganya daripada sekadar material mewah.</p>
+                
+                <p>Gimana caranya bikin dekorasi minimalis lo terlihat seperti pesta jutawan? Yuk, intip rahasia dapur kami!</p>
 
-        <h2>1. Material Cerdas: Efek Mahal, Harga Miring</h2>
-        <p>Rahasia pertama ada pada pemilihan material. Daripada memaksakan bunga segar impor yang harganya selangit, lo bisa pakai kombinasi bunga lokal kualitas premium dengan dedaunan hijau (*foliage*) yang melimpah. Daun-daun hijau memberikan volume dan kesan "lush" atau rimbun yang elegan tanpa harus beli ribuan tangkai mawar.</p>
-        
-        <div style="margin: 30px 0;">
-            <p style="font-size: 0.8rem; color: #888; text-align: center; margin-top: 10px;">*Trik pencahayaan dan penempatan bunga lokal yang estetik*</p>
-        </div>
+                <h2>1. Material Cerdas: Efek Mahal, Harga Miring</h2>
+                <p>Rahasia pertama ada pada pemilihan material. Daripada memaksakan bunga segar impor yang harganya selangit, lo bisa pakai kombinasi bunga lokal kualitas premium dengan dedaunan hijau (*foliage*) yang melimpah. Daun-daun hijau memberikan volume dan kesan "lush" atau rimbun yang elegan tanpa harus beli ribuan tangkai mawar.</p>
+                
+                <div style="margin: 30px 0;">
+                    <p style="font-size: 0.8rem; color: #888; text-align: center; margin-top: 10px;">*Trik pencahayaan dan penempatan bunga lokal yang estetik*</p>
+                </div>
 
-        <h2>2. Kekuatan Pencahayaan (Lighting Is Everything)</h2>
-        <p>Lo bisa pasang kain putih paling murah sekalipun, tapi kalau ditembak dengan *warm amber lighting* yang pas, kain itu bakal terlihat seperti sutra mahal. Pencahayaan adalah elemen dekorasi termurah dengan dampak terbesar. Gunakan *spotlight* untuk menonjolkan area utama dan *fairy lights* untuk memberikan kesan magis.</p>
+                <h2>2. Kekuatan Pencahayaan (Lighting Is Everything)</h2>
+                <p>Lo bisa pasang kain putih paling murah sekalipun, tapi kalau ditembak dengan *warm amber lighting* yang pas, kain itu bakal terlihat seperti sutra mahal. Pencahayaan adalah elemen dekorasi termurah dengan dampak terbesar. Gunakan *spotlight* untuk menonjolkan area utama dan *fairy lights* untuk memberikan kesan magis.</p>
 
-        <h2>3. Fokus pada 'Statement Piece'</h2>
-        <p>Jangan dekorasi seluruh ruangan secara berlebihan. Fokuskan budget lo pada satu titik utama yang bakal sering difoto (seperti pelaminan atau area *photo booth*). Biarkan area lain tetap simpel dan bersih. Mata tamu bakal otomatis tertuju pada titik termewah tersebut.</p>
+                <h2>3. Fokus pada 'Statement Piece'</h2>
+                <p>Jangan dekorasi seluruh ruangan secara berlebihan. Fokuskan budget lo pada satu titik utama yang bakal sering difoto (seperti pelaminan atau area *photo booth*). Biarkan area lain tetap simpel dan bersih. Mata tamu bakal otomatis tertuju pada titik termewah tersebut.</p>
 
-        <p>Jadi, jangan biarkan angka di rekening menghalangi cerita indah lo. Dengan strategi yang bener, GDecors siap wujudin dekorasi impian lo yang tetep ramah di kantong!</p>
-    </div>
-</main>
+                <p>Jadi, jangan biarkan angka di rekening menghalangi cerita indah lo. Dengan strategi yang bener, GDecors siap wujudin dekorasi impian lo yang tetep ramah di kantong!</p>
+            </div>
+        </main>
 
         <aside class="article-sidebar" data-aos="fade-left">
             <div class="share-box">
@@ -218,7 +207,7 @@
                 <h4>Related Articles</h4>
                 
                 <a href="#" class="related-card">
-                    <img src="images/color_trend.jpg" class="related-img">
+                    <img src="images/wedding/wedding2.jpg" class="related-img">
                     <div class="related-info">
                         <span>Trends</span>
                         <h5>2026 Color Trends in Decor</h5>
@@ -226,7 +215,7 @@
                 </a>
 
                 <a href="#" class="related-card">
-                    <img src="images/lighting_guide.jpg" class="related-img">
+                    <img src="images/engagement/enga2.jpg" class="related-img">
                     <div class="related-info">
                         <span>Guides</span>
                         <h5>The Power of Ambient Lighting</h5>
@@ -244,41 +233,9 @@
         </aside>
     </div>
 
-    <footer class="footer">
-    <div class="footer-wrapper">
-        <div class="footer-top">
-            <div class="footer-col brand-col">
-                <h2 class="footer-logo">GDecors<span>.</span></h2>
-                <p class="footer-tagline">Crafting Spaces, Creating Story. We turn your imagination into an unforgettable celebration.</p>
-                <div class="footer-socials">
-                    <a href="http://instagram.com/gresik_decoration" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="#"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#" aria-label="mailto:hello@gdecors.com"><i class="fas fa-envelope"></i></a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h4>Navigation</h4>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#categories">Our Catalog</a></li>
-                    <li><a href="#about">About Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Contact Us</h4>
-                <p><i class="fas fa-map-marker-alt"></i> Surabaya, East Java</p>
-                <p><i class="fas fa-phone-alt"></i> +62 875 6567 57755</p>
-                <p><i class="fas fa-clock"></i> Mon - Sat: 09.00 - 18.00</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 GDecors. All Rights Reserved. Designed for Excellence.</p>
-        </div>
-    </div>
-    </footer>
+    <div id="global-footer"></div>
 
-
+    <script src="components.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });

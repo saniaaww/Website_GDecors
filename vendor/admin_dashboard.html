@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDecors Admin - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* (CSS Anda tetap sama, sudah rapi) */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #F8F9F7; color: #2C302E; }
+        .admin-wrapper { display: flex; min-height: 100vh; transition: all 0.3s; }
+        .admin-sidebar { width: 260px; background: #3d4831; color: white; padding: 30px; position: fixed; height: 100vh; transition: all 0.3s; overflow: hidden; }
+        .brand { font-family: 'Playfair Display'; font-size: 2rem; font-weight: 800; margin-bottom: 50px; color: #A8B5A7; display: flex; align-items: center; gap: 15px; }
+        .sidebar-menu { list-style: none; }
+        .sidebar-menu li { margin-bottom: 15px; }
+        .sidebar-menu li a { text-decoration: none; color: #D1D5DB; display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; transition: 0.3s; }
+        .sidebar-menu li.active a, .sidebar-menu li a:hover { background: #353c2d; color: #fff; }
+        .toggle-btn { background: none; border: none; color: #A8B5A7; cursor: pointer; font-size: 1.2rem; transition: 0.3s; }
+        .toggle-btn:hover { color: white; }
+        .admin-sidebar.collapsed { width: 80px; padding: 30px 15px; }
+        .admin-sidebar.collapsed .brand span, .admin-sidebar.collapsed .menu-text { display: none; }
+        .admin-sidebar.collapsed .sidebar-menu li a { justify-content: center; }
+        .admin-main { flex: 1; margin-left: 260px; padding: 40px; transition: all 0.3s; }
+        .admin-main.expanded { margin-left: 80px; }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; margin-bottom: 40px; }
+        .stat-card { background: white; padding: 30px; border-radius: 20px; border: 1px solid rgba(125, 132, 113, 0.1); display: flex; justify-content: space-between; align-items: center; text-decoration: none; color: inherit; transition: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+        .stat-title { display: block; font-size: 0.85rem; color: #626858; margin-bottom: 8px; font-weight: 700; text-transform: uppercase; }
+        .stat-number { font-family: 'Inter', sans-serif; font-size: 2rem; font-weight: 800; color: #2C302E; }
+        .stat-icon-box { background: #F0F3ED; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; border-radius: 15px; color: #3D4831; font-size: 1.4rem; }
+        .bottom-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+        .card { background: white; padding: 30px; border-radius: 20px; border: 1px solid rgba(125, 132, 113, 0.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { text-align: left; color: #626858; font-size: 0.8rem; padding: 15px 0; border-bottom: 1px solid #f0f3ed; }
+        td { padding: 15px 0; font-size: 0.95rem; font-weight: 600; border-bottom: 1px solid #f0f3ed; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-wrapper">
+        <aside class="admin-sidebar" id="sidebar">
+            <div class="brand">
+                <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+                <span class="menu-text">GDecors.</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active"><a href="admin_dashboard.html"><i class="fas fa-th-large"></i> <span class="menu-text">Dashboard</span></a></li>
+                <li><a href="admin_artikel.html"><i class="fas fa-newspaper"></i> <span class="menu-text">Kelola Artikel</span></a></li>
+                <li><a href="admin_produk.html"><i class="fas fa-boxes"></i> <span class="menu-text">Kelola Produk</span></a></li>
+                <li><a href="admin_pengguna.html"><i class="fas fa-users"></i> <span class="menu-text">Kelola Pengguna</span></a></li>
+                <li><a href="admin_transaksi.html"><i class="fas fa-receipt"></i> <span class="menu-text">Kelola Transaksi</span></a></li>
+                <li style="margin-top: 40px;">
+                    <a href="../index.html" onclick="localStorage.removeItem('admin_login');" style="color: #FEB2B2;">
+                        <i class="fas fa-sign-out-alt"></i> <span class="menu-text">Keluar</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="admin-main" id="main-content">
+            <div class="admin-header"><h1>Dashboard</h1></div>
+            <div class="dashboard-grid">
+                <a href="admin_artikel.html" class="stat-card">
+                    <div><span class="stat-title">Total Artikel</span><span class="stat-number" id="count-artikel">0</span></div>
+                    <div class="stat-icon-box"><i class="fas fa-newspaper"></i></div>
+                </a>
+                <a href="admin_produk.html" class="stat-card">
+                    <div><span class="stat-title">Total Produk</span><span class="stat-number" id="count-produk">0</span></div>
+                    <div class="stat-icon-box"><i class="fas fa-boxes"></i></div>
+                </a>
+                <a href="admin_pengguna.html" class="stat-card">
+                    <div><span class="stat-title">Pengguna</span><span class="stat-number" id="count-user">0</span></div>
+                    <div class="stat-icon-box"><i class="fas fa-users"></i></div>
+                </a>
+                <a href="admin_transaksi.html" class="stat-card">
+                    <div><span class="stat-title">Transaksi</span><span class="stat-number" id="count-transaksi">0</span></div>
+                    <div class="stat-icon-box"><i class="fas fa-receipt"></i></div>
+                </a>
+            </div>
+
+            <div class="bottom-grid">
+                <div class="card">
+                    <h3>Transaksi Terbaru</h3>
+                    <table>
+                        <thead><tr><th>Invoice</th><th>Pelanggan</th><th>Total</th></tr></thead>
+                        <tbody id="recent-transactions-body"></tbody>
+                    </table>
+                </div>
+                <div class="card">
+                    <h3>Proporsi Data</h3>
+                    <canvas id="myChart" style="max-height: 200px;"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+            document.getElementById('main-content').classList.toggle('expanded');
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // PERBAIKAN: Cukup ambil data yang ada, jangan paksa isi dengan data baru
+            const data = {
+                artikel: JSON.parse(localStorage.getItem('artikelGDecors')) || [],
+                produk: JSON.parse(localStorage.getItem('gdecors_products')) || [],
+                users: JSON.parse(localStorage.getItem('usersGDecors')) || [],
+                history: JSON.parse(localStorage.getItem('gdecors_history')) || []
+            };
+
+            document.getElementById('count-artikel').innerText = data.artikel.length;
+            document.getElementById('count-produk').innerText = data.produk.length;
+            document.getElementById('count-user').innerText = data.users.length;
+            document.getElementById('count-transaksi').innerText = data.history.length;
+
+            const tbody = document.getElementById('recent-transactions-body');
+            tbody.innerHTML = data.history.slice(-5).reverse().map(item => `
+                <tr>
+                    <td>${item.invoice || 'INV-XXX'}</td>
+                    <td>${item.pelanggan || 'User'}</td>
+                    <td>Rp ${parseInt(item.total || 0).toLocaleString()}</td>
+                </tr>
+            `).join('');
+
+            new Chart(document.getElementById('myChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Artikel', 'Produk', 'User'],
+                    datasets: [{
+                        data: [data.artikel.length, data.produk.length, data.users.length],
+                        backgroundColor: ['#3d4831', '#7d8471', '#a8b5a7']
+                    }]
+                }
+            });
+        });
+    </script>
+</body>
+</html>
